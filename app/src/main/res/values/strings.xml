@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Weather</string>
+
+    <string name="cities_empty_message">Add cities using the (+) button below</string>
+
+    <string name="search_city_hint">Search City</string>
+
+    <string name="place_details">&lt;b&gt;%1$s&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Place Id: %2$s&lt;/i&gt;&lt;br/&gt;Address: %3$s&lt;br/&gt;</string>
+
+</resources>
