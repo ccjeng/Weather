@@ -7,16 +7,21 @@ import android.widget.Toast;
 
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
+import com.ccjeng.weather.model.forecastio.CityWeather;
 import com.ccjeng.weather.presenter.CitiesView;
 import com.ccjeng.weather.presenter.base.BasePresenter;
 import com.ccjeng.weather.repository.ICityRepository;
 import com.ccjeng.weather.repository.impl.CityRepository;
+import com.ccjeng.weather.repository.impl.WeatherService;
 import com.ccjeng.weather.view.adapter.CitiesAdapter;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.List;
 
+import rx.Observable;
+import rx.Subscriber;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Created by andycheng on 2016/9/5.
@@ -41,10 +46,46 @@ public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeR
     }
 
     public void reloadCities() {
+        /*
         mCityRepository.getCities().subscribe(new Action1<List<City>>() {
             @Override
             public void call(List<City> cities) {
                 mCitiesView.addCities(cities);
+            }
+        });
+        */
+
+        mCityRepository.getCities().doOnNext(new Action1<List<City>>() {
+            @Override
+            public void call(List<City> cities) {
+                mCitiesView.addCities(cities);
+            }
+        }).flatMapIterable(new Func1<List<City>, Iterable<City>>() {
+            @Override
+            public Iterable<City> call(List<City> cities) {
+                return cities;
+            }
+        }).flatMap(new Func1<City, Observable<CityWeather>>() {
+            @Override
+            public Observable<CityWeather> call(City city) {
+                WeatherService service = new WeatherService();
+                Log.d(TAG, "city = " + city.getName());
+                return service.getWeatherData(city);
+            }
+        }).subscribe(new Subscriber<CityWeather>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, e.getMessage());
+            }
+
+            @Override
+            public void onNext(CityWeather weather) {
+                Log.d(TAG, weather.getCurrently().getSummary());
             }
         });
     }
