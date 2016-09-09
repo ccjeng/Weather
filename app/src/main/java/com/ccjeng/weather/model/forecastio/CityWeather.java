@@ -31,6 +31,17 @@ public class CityWeather {
     @Expose
     private Flags flags;
 
+    private long fetchtime;
+
+
+    public long getFetchtime() {
+        return fetchtime;
+    }
+
+    public void setFetchtime(long fetchtime) {
+        this.fetchtime = fetchtime;
+    }
+
     /**
      * 
      * @return

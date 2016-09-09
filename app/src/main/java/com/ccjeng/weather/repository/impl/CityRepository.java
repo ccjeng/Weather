@@ -1,6 +1,9 @@
 package com.ccjeng.weather.repository.impl;
 
+import android.util.Log;
+
 import com.ccjeng.weather.model.City;
+import com.ccjeng.weather.realm.RealmTable;
 import com.ccjeng.weather.repository.ICityRepository;
 import com.ccjeng.weather.view.base.BaseApplication;
 
@@ -17,6 +20,8 @@ import rx.functions.Func1;
  */
 public class CityRepository implements ICityRepository {
 
+    private final String TAG = this.getClass().getSimpleName();
+
     @Override
     public void addCity(final City city, final onSaveCallback callback) {
         final Realm realm = Realm.getInstance(BaseApplication.realmConfiguration);
@@ -24,7 +29,7 @@ public class CityRepository implements ICityRepository {
             @Override
             public void execute(Realm realm) {
                 City newCity = realm.where(City.class)
-                        .equalTo("id", city.getId()).findFirst();
+                        .equalTo(RealmTable.ID, city.getId()).findFirst();
                 if (newCity == null) {
                     City c = realm.createObject(City.class);
                     c.setId(city.getId());
@@ -42,6 +47,7 @@ public class CityRepository implements ICityRepository {
         }, new Realm.Transaction.OnError() {
             @Override
             public void onError(Throwable error) {
+                Log.e(TAG, error.getMessage());
                 realm.close();
                 callback.onError(error.getMessage());
             }
@@ -74,9 +80,9 @@ public class CityRepository implements ICityRepository {
         final Realm realm = Realm.getInstance(BaseApplication.realmConfiguration);
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
-            public void execute(Realm realm) {
+            public void execute(Realm realm0) {
                 realm.where(City.class)
-                        .equalTo("id", city.getId()).findFirst()
+                        .equalTo(RealmTable.ID, city.getId()).findFirst()
                         .deleteFromRealm();
             }
         }, new Realm.Transaction.OnSuccess() {
@@ -88,6 +94,7 @@ public class CityRepository implements ICityRepository {
         }, new Realm.Transaction.OnError() {
             @Override
             public void onError(Throwable error) {
+                Log.e(TAG, error.getMessage());
                 realm.close();
                 callback.onError(error.getMessage());
             }

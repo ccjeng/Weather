@@ -17,7 +17,7 @@ public class Hourly {
     private String icon;
     @SerializedName("data")
     @Expose
-    private List<Datum> data = new ArrayList<Datum>();
+    private List<Hour> data = new ArrayList<Hour>();
 
     /**
      * 
@@ -60,7 +60,7 @@ public class Hourly {
      * @return
      *     The data
      */
-    public List<Datum> getData() {
+    public List<Hour> getHour() {
         return data;
     }
 
@@ -69,7 +69,7 @@ public class Hourly {
      * @param data
      *     The data
      */
-    public void setData(List<Datum> data) {
+    public void setHour(List<Hour> data) {
         this.data = data;
     }
 

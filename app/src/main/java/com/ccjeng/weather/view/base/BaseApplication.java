@@ -16,7 +16,9 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        realmConfiguration = new RealmConfiguration.Builder(this).build();
+        realmConfiguration = new RealmConfiguration.Builder(this)
+                .deleteRealmIfMigrationNeeded()
+                .build();
         //Realm.setDefaultConfiguration(realmConfiguration);
     }
 }

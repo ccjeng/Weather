@@ -59,9 +59,8 @@ public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeR
         }).flatMap(new Func1<City, Observable<City>>() {
             @Override
             public Observable<City> call(City city) {
-                WeatherService service = new WeatherService();
                 Log.d(TAG, "city = " + city.getName());
-                return service.getWeatherData(city);
+                return WeatherService.getWeatherData(city);
             }
         }).subscribe(new Subscriber<City>() {
             @Override

@@ -8,7 +8,7 @@ public class Currently {
 
     @SerializedName("time")
     @Expose
-    private Integer time;
+    private Double time;
     @SerializedName("summary")
     @Expose
     private String summary;
@@ -17,10 +17,10 @@ public class Currently {
     private String icon;
     @SerializedName("precipIntensity")
     @Expose
-    private Integer precipIntensity;
+    private Double precipIntensity;
     @SerializedName("precipProbability")
     @Expose
-    private Integer precipProbability;
+    private Double precipProbability;
     @SerializedName("temperature")
     @Expose
     private Double temperature;
@@ -38,10 +38,10 @@ public class Currently {
     private Double windSpeed;
     @SerializedName("windBearing")
     @Expose
-    private Integer windBearing;
+    private Double windBearing;
     @SerializedName("cloudCover")
     @Expose
-    private Integer cloudCover;
+    private Double cloudCover;
     @SerializedName("pressure")
     @Expose
     private Double pressure;
@@ -54,7 +54,7 @@ public class Currently {
      * @return
      *     The time
      */
-    public Integer getTime() {
+    public Double getTime() {
         return time;
     }
 
@@ -63,7 +63,7 @@ public class Currently {
      * @param time
      *     The time
      */
-    public void setTime(Integer time) {
+    public void setTime(Double time) {
         this.time = time;
     }
 
@@ -108,7 +108,7 @@ public class Currently {
      * @return
      *     The precipIntensity
      */
-    public Integer getPrecipIntensity() {
+    public Double getPrecipIntensity() {
         return precipIntensity;
     }
 
@@ -117,7 +117,7 @@ public class Currently {
      * @param precipIntensity
      *     The precipIntensity
      */
-    public void setPrecipIntensity(Integer precipIntensity) {
+    public void setPrecipIntensity(Double precipIntensity) {
         this.precipIntensity = precipIntensity;
     }
 
@@ -126,7 +126,7 @@ public class Currently {
      * @return
      *     The precipProbability
      */
-    public Integer getPrecipProbability() {
+    public Double getPrecipProbability() {
         return precipProbability;
     }
 
@@ -135,7 +135,7 @@ public class Currently {
      * @param precipProbability
      *     The precipProbability
      */
-    public void setPrecipProbability(Integer precipProbability) {
+    public void setPrecipProbability(Double precipProbability) {
         this.precipProbability = precipProbability;
     }
 
@@ -234,7 +234,7 @@ public class Currently {
      * @return
      *     The windBearing
      */
-    public Integer getWindBearing() {
+    public Double getWindBearing() {
         return windBearing;
     }
 
@@ -243,7 +243,7 @@ public class Currently {
      * @param windBearing
      *     The windBearing
      */
-    public void setWindBearing(Integer windBearing) {
+    public void setWindBearing(Double windBearing) {
         this.windBearing = windBearing;
     }
 
@@ -252,7 +252,7 @@ public class Currently {
      * @return
      *     The cloudCover
      */
-    public Integer getCloudCover() {
+    public Double getCloudCover() {
         return cloudCover;
     }
 
@@ -261,7 +261,7 @@ public class Currently {
      * @param cloudCover
      *     The cloudCover
      */
-    public void setCloudCover(Integer cloudCover) {
+    public void setCloudCover(Double cloudCover) {
         this.cloudCover = cloudCover;
     }
 

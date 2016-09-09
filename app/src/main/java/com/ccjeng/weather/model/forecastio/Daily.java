@@ -17,7 +17,7 @@ public class Daily {
     private String icon;
     @SerializedName("data")
     @Expose
-    private List<Datum_> data = new ArrayList<Datum_>();
+    private List<Day> data = new ArrayList<Day>();
 
     /**
      * 
@@ -60,7 +60,7 @@ public class Daily {
      * @return
      *     The data
      */
-    public List<Datum_> getData() {
+    public List<Day> getDay() {
         return data;
     }
 
@@ -69,7 +69,7 @@ public class Daily {
      * @param data
      *     The data
      */
-    public void setData(List<Datum_> data) {
+    public void setDay(List<Day> data) {
         this.data = data;
     }
 

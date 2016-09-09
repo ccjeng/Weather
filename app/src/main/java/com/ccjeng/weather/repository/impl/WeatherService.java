@@ -1,7 +1,5 @@
 package com.ccjeng.weather.repository.impl;
 
-import android.content.Context;
-
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.forecastio.CityWeather;
 import com.ccjeng.weather.repository.WeatherServiceEndpoint;
@@ -25,35 +23,42 @@ import rx.schedulers.Schedulers;
  */
 public class WeatherService {
 
-    private Context mContext;
+    static volatile Retrofit retrofit = null;
 
-    private OkHttpClient okhttpClient;
-    public WeatherService() {
+    private WeatherService() {
+    }
 
+    public static Retrofit getClient() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         if (BaseApplication.APPDEBUG) {
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
         } else {
             logging.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
 
-        okhttpClient = new OkHttpClient.Builder()
+        OkHttpClient okhttpClient = new OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .build();
 
+        if (retrofit == null) {
+            synchronized (WeatherService.class) {
+                if (retrofit == null) {
+                    retrofit = new Retrofit.Builder()
+                            .baseUrl(Constant.FORECASTIO_ENDPOINT)
+                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .client(okhttpClient)
+                            .build();
+                }
+            }
+        }
+        return retrofit;
+
     }
 
-    public Observable<City> getWeatherData(final City city) {
-//// TODO: 2016/9/9 singleton
+    public static Observable<City> getWeatherData(final City city) {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.FORECASTIO_ENDPOINT)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okhttpClient)
-                .build();
-
-        WeatherServiceEndpoint service = retrofit.create(WeatherServiceEndpoint.class);
+        WeatherServiceEndpoint service = getClient().create(WeatherServiceEndpoint.class);
 
         String latlong = String.format("%s,%s", city.getLat(), city.getLon());
 
@@ -64,7 +69,15 @@ public class WeatherService {
                     @Override
                     public City call(CityWeather weather) {
                         if (weather != null) {
+                            weather.setFetchtime(System.currentTimeMillis());
                             city.setCityWeather(weather);
+
+                            //add to cache
+                            WeatherRepository repository = new WeatherRepository();
+                          //  repository.removeWeather(city);
+                            repository.putWeatherCurrently(city);
+                            repository.putWeatherDaily(city);
+                            repository.putWeatherHourly(city);
                         }
                         return city;
                     }
