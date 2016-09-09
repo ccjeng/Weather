@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
-import com.ccjeng.weather.model.forecastio.CityWeather;
 import com.ccjeng.weather.presenter.CitiesView;
 import com.ccjeng.weather.presenter.base.BasePresenter;
 import com.ccjeng.weather.repository.ICityRepository;
@@ -46,14 +45,6 @@ public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeR
     }
 
     public void reloadCities() {
-        /*
-        mCityRepository.getCities().subscribe(new Action1<List<City>>() {
-            @Override
-            public void call(List<City> cities) {
-                mCitiesView.addCities(cities);
-            }
-        });
-        */
 
         mCityRepository.getCities().doOnNext(new Action1<List<City>>() {
             @Override
@@ -65,17 +56,16 @@ public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeR
             public Iterable<City> call(List<City> cities) {
                 return cities;
             }
-        }).flatMap(new Func1<City, Observable<CityWeather>>() {
+        }).flatMap(new Func1<City, Observable<City>>() {
             @Override
-            public Observable<CityWeather> call(City city) {
+            public Observable<City> call(City city) {
                 WeatherService service = new WeatherService();
                 Log.d(TAG, "city = " + city.getName());
                 return service.getWeatherData(city);
             }
-        }).subscribe(new Subscriber<CityWeather>() {
+        }).subscribe(new Subscriber<City>() {
             @Override
             public void onCompleted() {
-
             }
 
             @Override
@@ -84,8 +74,10 @@ public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeR
             }
 
             @Override
-            public void onNext(CityWeather weather) {
-                Log.d(TAG, weather.getCurrently().getSummary());
+            public void onNext(City city) {
+
+                Log.d(TAG, city.getCityWeather().getCurrently().getSummary());
+                mCitiesView.updateCity(city);
             }
         });
     }

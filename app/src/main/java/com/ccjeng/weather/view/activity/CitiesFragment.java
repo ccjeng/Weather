@@ -156,6 +156,7 @@ public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> im
     @Override
     public void updateCity(City city) {
         mSwipeRefresh.setRefreshing(false);
+        mAdapter.updateCity(city);
     }
 
     @Override

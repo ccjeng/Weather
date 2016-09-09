@@ -17,6 +17,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -42,7 +43,7 @@ public class WeatherService {
 
     }
 
-    public Observable<CityWeather> getWeatherData(City city) {
+    public Observable<City> getWeatherData(final City city) {
 //// TODO: 2016/9/9 singleton
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -58,7 +59,16 @@ public class WeatherService {
 
         return service.getForecast(latlong, Constant.FORECASTIO_APIKEY, "ca", Locale.getDefault().getLanguage())
                 .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Func1<CityWeather, City>() {
+                    @Override
+                    public City call(CityWeather weather) {
+                        if (weather != null) {
+                            city.setCityWeather(weather);
+                        }
+                        return city;
+                    }
+                });
 
     }
 }
