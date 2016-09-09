@@ -3,6 +3,7 @@ package com.ccjeng.weather.view.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import com.ccjeng.weather.R;
 import com.ccjeng.weather.presenter.SearchView;
 import com.ccjeng.weather.presenter.impl.SearchPresenter;
 import com.ccjeng.weather.view.GoogleApiClientProvider;
-import com.ccjeng.weather.view.adapter.PlaceAutocompleteAdapter;
 import com.ccjeng.weather.view.base.BaseFragment;
 
 import butterknife.BindView;
@@ -28,7 +28,6 @@ public class SearchFragment extends BaseFragment<SearchView, SearchPresenter> im
     @BindView(R.id.autocomplete)
     AutoCompleteTextView autocompleteView;
 
-    private PlaceAutocompleteAdapter adapter;
     private GoogleApiClientProvider googleApiClientProvider;
 
 
@@ -49,7 +48,7 @@ public class SearchFragment extends BaseFragment<SearchView, SearchPresenter> im
 
     private void initialize() {
         mPresenter.setGoogleApiClient(googleApiClientProvider.getApiClient());
-        mPresenter.setAutocomleteView();
+        mPresenter.setAutocompleteView();
     }
 
     @Override
@@ -57,6 +56,13 @@ public class SearchFragment extends BaseFragment<SearchView, SearchPresenter> im
         super.onAttach(context);
         googleApiClientProvider = (GoogleApiClientProvider) context;
 
+    }
+
+
+    @Override
+    public void onDestroy() {
+        mPresenter.onDestory();
+        super.onDestroy();
     }
 
     @Override
@@ -67,27 +73,15 @@ public class SearchFragment extends BaseFragment<SearchView, SearchPresenter> im
     @Override
     public void setAutocompleteView() {
         autocompleteView.setOnItemClickListener(mPresenter);
-
         mPresenter.setPlaceAutocompleteAdapter();
-
         autocompleteView.setAdapter(mPresenter.getPlaceAutocompleteAdapter());
-
     }
 
     @Override
     public void onCitySuggestionSelected() {
-        /*
-        getSupportFragmentManager().popBackStack();
-
-        //Hide soft keyboard
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-
-        getSupportFragmentManager().executePendingTransactions();
-        ((CitiesFragment) getSupportFragmentManager().findFragmentById(R.id.fragment)).presenter.addNewCity(city);
-*/
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment, new CitiesFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

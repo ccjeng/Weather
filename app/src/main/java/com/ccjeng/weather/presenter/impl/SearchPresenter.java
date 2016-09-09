@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.presenter.SearchView;
 import com.ccjeng.weather.presenter.base.BasePresenter;
@@ -40,7 +41,7 @@ public class SearchPresenter extends BasePresenter<SearchView> implements Adapte
         mCityRepository = new CityRepository();
     }
 
-    public void setAutocomleteView() {
+    public void setAutocompleteView() {
         mSearchView.setAutocompleteView();
     }
 
@@ -60,6 +61,11 @@ public class SearchPresenter extends BasePresenter<SearchView> implements Adapte
 
     public PlaceAutocompleteAdapter getPlaceAutocompleteAdapter() {
         return adapter;
+    }
+
+    @Override
+    public void onDestory() {
+
     }
 
     @Override
@@ -105,14 +111,15 @@ public class SearchPresenter extends BasePresenter<SearchView> implements Adapte
             //Add City
             ICityRepository.onSaveCallback onSaveCallback = new ICityRepository.onSaveCallback() {
                 @Override
-                public void onSuccess() {
-                    Toast.makeText(mContext, "Saved", Toast.LENGTH_LONG).show();
+                public void onSuccess(String cityName) {
+                    Toast.makeText(mContext, cityName + " " + mContext.getString(R.string.msg_added), Toast.LENGTH_LONG).show();
                     //Back to CityFragment
                     mSearchView.onCitySuggestionSelected();
                 }
 
                 @Override
                 public void onError(String message) {
+                    Log.e(TAG, message);
                 }
             };
             City city = new City();

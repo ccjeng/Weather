@@ -7,4 +7,8 @@
 
     <string name="place_details">&lt;b&gt;%1$s&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Place Id: %2$s&lt;/i&gt;&lt;br/&gt;Address: %3$s&lt;br/&gt;</string>
 
+
+    <string name="msg_added">Added</string>
+    <string name="msg_deleted">Deleted</string>
+
 </resources>

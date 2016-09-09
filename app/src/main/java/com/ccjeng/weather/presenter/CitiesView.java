@@ -10,7 +10,7 @@ import java.util.List;
 public interface CitiesView {
     void onAddCityButtonSelected();
     void addCity(City city);
-    void addCities(List<City> city);
+    void addCities(List<City> cities);
     void updateCity(City city);
     void showTemperatureInCelsius();
     void showTemperatureInFahrenheit();

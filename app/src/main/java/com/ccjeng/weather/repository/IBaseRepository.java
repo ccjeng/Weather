@@ -6,17 +6,17 @@ package com.ccjeng.weather.repository;
 public interface IBaseRepository {
 
     interface onSaveCallback {
-        void onSuccess();
+        void onSuccess(String cityName);
         void onError(String message);
     }
 
     interface onDeleteCallback {
-        void onSuccess();
+        void onSuccess(String cityName);
         void onError(String message);
     }
 
     interface onUpdateCallback {
-        void onSuccess();
+        void onSuccess(String cityName);
         void onError(String message);
     }
 }

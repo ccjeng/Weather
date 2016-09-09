@@ -6,7 +6,7 @@ import java.lang.ref.WeakReference;
 /**
  * Created by andycheng on 2016/9/7.
  */
-public abstract class BasePresenter<T> {
+public abstract class BasePresenter<T> implements Presenter {
     protected Reference<T> mViewRef;
 
     public void attachView(T view) {
@@ -27,4 +27,5 @@ public abstract class BasePresenter<T> {
             mViewRef = null;
         }
     }
+
 }
