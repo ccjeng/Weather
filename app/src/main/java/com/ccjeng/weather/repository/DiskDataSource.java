@@ -18,6 +18,9 @@ public class DiskDataSource implements DataSource {
 
     @Override
     public Observable<City> getWeatherData(City city) {
+        /* no need to do anything, just return city object
+         , since weather data is getting on CityRepository.getCities
+         */
         return Observable.just(city);
     }
 }

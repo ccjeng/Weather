@@ -5,5 +5,5 @@ package com.ccjeng.weather.presenter.base;
  */
 public interface Presenter {
 
-    void onDestory();
+    void onDestroy();
 }

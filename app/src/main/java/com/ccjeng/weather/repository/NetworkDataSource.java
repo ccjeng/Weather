@@ -22,6 +22,7 @@ import rx.schedulers.Schedulers;
  * Created by andycheng on 2016/9/9.
  */
 public class NetworkDataSource implements DataSource {
+    private final String TAG = this.getClass().getSimpleName();
 
     static volatile Retrofit retrofit = null;
 
@@ -68,6 +69,7 @@ public class NetworkDataSource implements DataSource {
                 .map(new Func1<CityWeather, City>() {
                     @Override
                     public City call(CityWeather weather) {
+
                         if (weather != null) {
                             weather.setFetchTime(System.currentTimeMillis());
                             city.setCityWeather(weather);

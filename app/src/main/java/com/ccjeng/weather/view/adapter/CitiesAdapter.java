@@ -95,7 +95,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
 
         holder.cityName.setText(city.getName());
 
-        if (cities.get(position).getCityWeather() != null) {
+        if (cities.get(position).getCityWeather().getCurrently() != null) {
           //  holder.view.setBackgroundColor(city.getCityWeather().getCurrently().getColor(context));
 
             holder.icon.setIcon(city.getCityWeather().getCurrently().getIconImage(context));

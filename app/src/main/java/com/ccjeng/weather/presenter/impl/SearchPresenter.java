@@ -63,7 +63,7 @@ public class SearchPresenter extends BasePresenter<SearchView> implements Adapte
     }
 
     @Override
-    public void onDestory() {
+    public void onDestroy() {
 
     }
 

@@ -35,9 +35,8 @@ public class CacheRepository {
             return true;
         }
 
-        //return (System.currentTimeMillis() - city.getCityWeather().getFetchTime() > EXPIRATION_TIME);
-
-        return true;
+        return (System.currentTimeMillis() - city.getCityWeather().getFetchTime() > EXPIRATION_TIME);
+       // return true;
     }
 
     public void removeCache(final City city) {

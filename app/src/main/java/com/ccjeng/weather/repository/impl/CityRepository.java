@@ -7,6 +7,7 @@ import com.ccjeng.weather.realm.RealmTable;
 import com.ccjeng.weather.repository.ICityRepository;
 import com.ccjeng.weather.view.base.BaseApplication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
@@ -66,12 +67,21 @@ public class CityRepository implements ICityRepository {
                     @Override
                     public List<City> call(RealmResults<City> cities) {
                         //Set cityWeather from diskcache
+                        ArrayList<City> citiesNew = new ArrayList<>();
+
                         for (City city:cities) {
+                            City cityNew = new City();
+                            cityNew.setId(city.getId());
+                            cityNew.setName(city.getName());
+                            cityNew.setLat(city.getLat());
+                            cityNew.setLon(city.getLon());
                             CacheRepository cache = new CacheRepository();
-                            city.setCityWeather(cache.getCityWeatherFromCityId(city.getId()));
+                            cityNew.setCityWeather(cache.getCityWeatherFromCityId(city.getId()));
+                            citiesNew.add(cityNew);
                         }
 
-                        return realm.copyFromRealm(cities);
+                        return citiesNew;
+
                     }
                 }).doOnUnsubscribe(new Action0() {
                     @Override

@@ -116,7 +116,7 @@ public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> im
 
     @Override
     public void onDestroy() {
-        presenter.onDestory();
+        presenter.onDestroy();
         super.onDestroy();
     }
 

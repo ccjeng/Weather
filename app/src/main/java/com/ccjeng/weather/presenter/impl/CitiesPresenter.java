@@ -38,7 +38,6 @@ public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeR
     private CitiesAdapter citiesAdapter;
     private CompositeSubscription subscriptions;
 
-
     public CitiesPresenter(CitiesView citiesView, Context context) {
         this.citiesView = citiesView;
         this.context = context;
@@ -52,37 +51,7 @@ public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeR
     }
 
     public void addNewCity(City city) {
-/*
-        subscriptions.add(Observable.just(city).doOnNext(new Action1<City>() {
-            @Override
-            public void call(City city) {
-                citiesView.addCity(city);
-            }
-        }).flatMap(new Func1<City, Observable<City>>() {
-            @Override
-            public Observable<City> call(City city) {
-                return WeatherService.getWeatherData(city);
-            }
-        }).subscribe(new Subscriber<City>() {
-            @Override
-            public void onCompleted() {
-                subscriptions.remove(this);
-                this.unsubscribe();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e(TAG, "addNewCity = " + e.toString());
-            }
-
-            @Override
-            public void onNext(City city) {
-                citiesView.updateCity(city);
-            }
-        }));
-        */
-
-
+        /* no need to do anything */
     }
 
     public void reloadCities() {
@@ -146,8 +115,6 @@ public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeR
         };
 
         cityRepository.removeCity(city, callback);
-
-
     }
 
     public void setAdapter(CitiesAdapter adapter) {
@@ -159,7 +126,7 @@ public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeR
     }
 
     @Override
-    public void onDestory() {
+    public void onDestroy() {
         subscriptions.unsubscribe();
     }
 

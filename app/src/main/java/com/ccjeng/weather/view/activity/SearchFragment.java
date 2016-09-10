@@ -56,13 +56,12 @@ public class SearchFragment extends BaseFragment<SearchView, SearchPresenter> im
     public void onAttach(Context context) {
         super.onAttach(context);
         googleApiClientProvider = (GoogleApiClientProvider) context;
-
     }
 
 
     @Override
     public void onDestroy() {
-        presenter.onDestory();
+        presenter.onDestroy();
         super.onDestroy();
     }
 
