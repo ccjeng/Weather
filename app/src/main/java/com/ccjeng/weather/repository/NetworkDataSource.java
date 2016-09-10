@@ -1,8 +1,8 @@
-package com.ccjeng.weather.repository.impl;
+package com.ccjeng.weather.repository;
 
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.forecastio.CityWeather;
-import com.ccjeng.weather.repository.WeatherServiceEndpoint;
+import com.ccjeng.weather.repository.impl.CacheRepository;
 import com.ccjeng.weather.utils.Constant;
 import com.ccjeng.weather.view.base.BaseApplication;
 
@@ -21,11 +21,11 @@ import rx.schedulers.Schedulers;
 /**
  * Created by andycheng on 2016/9/9.
  */
-public class WeatherService {
+public class NetworkDataSource implements DataSource {
 
     static volatile Retrofit retrofit = null;
 
-    private WeatherService() {
+    public NetworkDataSource() {
     }
 
     public static Retrofit getClient() {
@@ -41,7 +41,7 @@ public class WeatherService {
                 .build();
 
         if (retrofit == null) {
-            synchronized (WeatherService.class) {
+            synchronized (NetworkDataSource.class) {
                 if (retrofit == null) {
                     retrofit = new Retrofit.Builder()
                             .baseUrl(Constant.FORECASTIO_ENDPOINT)
@@ -56,7 +56,7 @@ public class WeatherService {
 
     }
 
-    public static Observable<City> getWeatherData(final City city) {
+    public Observable<City> getWeatherData(final City city) {
 
         WeatherServiceEndpoint service = getClient().create(WeatherServiceEndpoint.class);
 
@@ -69,15 +69,14 @@ public class WeatherService {
                     @Override
                     public City call(CityWeather weather) {
                         if (weather != null) {
-                            weather.setFetchtime(System.currentTimeMillis());
+                            weather.setFetchTime(System.currentTimeMillis());
                             city.setCityWeather(weather);
 
                             //add to cache
-                            WeatherRepository repository = new WeatherRepository();
-                          //  repository.removeWeather(city);
-                            repository.putWeatherCurrently(city);
-                            repository.putWeatherDaily(city);
-                            repository.putWeatherHourly(city);
+                            CacheRepository cache = new CacheRepository();
+                            cache.putWeatherCurrently(city);
+                            cache.putWeatherDaily(city);
+                            cache.putWeatherHourly(city);
                         }
                         return city;
                     }

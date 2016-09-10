@@ -1,8 +1,12 @@
 
 package com.ccjeng.weather.model.forecastio;
 
+import android.content.Context;
+
+import com.ccjeng.weather.utils.IconManager;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mikepenz.iconics.IconicsDrawable;
 
 public class Currently {
 
@@ -101,6 +105,10 @@ public class Currently {
      */
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public IconicsDrawable getIconImage(Context context) {
+        return IconManager.getIconResource(icon, context);
     }
 
     /**

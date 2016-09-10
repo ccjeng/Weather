@@ -9,7 +9,12 @@ import rx.Observable;
  */
 public interface ICityRepository extends IBaseRepository{
 
-    void addCity(City city, onSaveCallback callback);
+    interface onSearchSaveCallback {
+        void onSuccess(City city);
+        void onError(String message);
+    }
+
+    void addCity(City city, onSearchSaveCallback callback);
 
     void removeCity(City city, onDeleteCallback callback);
 

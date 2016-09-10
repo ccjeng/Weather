@@ -23,7 +23,7 @@ public class CityRepository implements ICityRepository {
     private final String TAG = this.getClass().getSimpleName();
 
     @Override
-    public void addCity(final City city, final onSaveCallback callback) {
+    public void addCity(final City city, final onSearchSaveCallback callback) {
         final Realm realm = Realm.getInstance(BaseApplication.realmConfiguration);
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
@@ -42,7 +42,7 @@ public class CityRepository implements ICityRepository {
             @Override
             public void onSuccess() {
                 realm.close();
-                callback.onSuccess(city.getName());
+                callback.onSuccess(city);
             }
         }, new Realm.Transaction.OnError() {
             @Override
@@ -60,14 +60,20 @@ public class CityRepository implements ICityRepository {
     public Observable<List<City>> getCities() {
         final Realm realm = Realm.getInstance(BaseApplication.realmConfiguration);
 
-        return realm.where(City.class).findAllAsync()
+        return realm.where(City.class).findAll()
                 .asObservable()
                 .map(new Func1<RealmResults<City>, List<City>>() {
                     @Override
                     public List<City> call(RealmResults<City> cities) {
+                        //Set cityWeather from diskcache
+                        for (City city:cities) {
+                            CacheRepository cache = new CacheRepository();
+                            city.setCityWeather(cache.getCityWeatherFromCityId(city.getId()));
+                        }
+
                         return realm.copyFromRealm(cities);
                     }
-                }).doOnCompleted(new Action0() {
+                }).doOnUnsubscribe(new Action0() {
                     @Override
                     public void call() {
                         realm.close();
@@ -80,7 +86,7 @@ public class CityRepository implements ICityRepository {
         final Realm realm = Realm.getInstance(BaseApplication.realmConfiguration);
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
-            public void execute(Realm realm0) {
+            public void execute(Realm realm) {
                 realm.where(City.class)
                         .equalTo(RealmTable.ID, city.getId()).findFirst()
                         .deleteFromRealm();

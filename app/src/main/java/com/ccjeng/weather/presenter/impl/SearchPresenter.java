@@ -29,26 +29,25 @@ public class SearchPresenter extends BasePresenter<SearchView> implements Adapte
 
     private final String TAG = this.getClass().getSimpleName();
 
-    private SearchView mSearchView;
-    private Context mContext;
+    private SearchView searchView;
+    private Context context;
     private GoogleApiClient googleApiClient;
     private PlaceAutocompleteAdapter adapter;
-    private CityRepository mCityRepository;
+    private CityRepository cityRepository;
 
     public SearchPresenter(SearchView view, Context context) {
-        this.mSearchView = view;
-        this.mContext = context;
-        mCityRepository = new CityRepository();
+        this.searchView = view;
+        this.context = context;
+        cityRepository = new CityRepository();
     }
 
     public void setAutocompleteView() {
-        mSearchView.setAutocompleteView();
+        searchView.setAutocompleteView();
     }
 
     public void setGoogleApiClient(GoogleApiClient googleApiClient) {
         this.googleApiClient = googleApiClient;
     }
-
 
     public void setPlaceAutocompleteAdapter() {
 
@@ -56,7 +55,7 @@ public class SearchPresenter extends BasePresenter<SearchView> implements Adapte
                 .setTypeFilter(AutocompleteFilter.TYPE_FILTER_CITIES)
                 .build();
 
-        this.adapter = new PlaceAutocompleteAdapter(mContext, googleApiClient, null, filter);
+        this.adapter = new PlaceAutocompleteAdapter(context, googleApiClient, null, filter);
     }
 
     public PlaceAutocompleteAdapter getPlaceAutocompleteAdapter() {
@@ -109,12 +108,13 @@ public class SearchPresenter extends BasePresenter<SearchView> implements Adapte
             Place place = places.get(0);
 
             //Add City
-            ICityRepository.onSaveCallback onSaveCallback = new ICityRepository.onSaveCallback() {
+            ICityRepository.onSearchSaveCallback onSaveCallback = new ICityRepository.onSearchSaveCallback() {
                 @Override
-                public void onSuccess(String cityName) {
-                    Toast.makeText(mContext, cityName + " " + mContext.getString(R.string.msg_added), Toast.LENGTH_LONG).show();
+                public void onSuccess(City city) {
+                    Toast.makeText(context, city.getName() + " " + context.getString(R.string.msg_added), Toast.LENGTH_LONG).show();
                     //Back to CityFragment
-                    mSearchView.onCitySuggestionSelected();
+                    Log.d(TAG, "Back to CityFragment = " + city.getName());
+                    searchView.onCitySuggestionSelected(city);
                 }
 
                 @Override
@@ -127,7 +127,7 @@ public class SearchPresenter extends BasePresenter<SearchView> implements Adapte
             city.setName(place.getName().toString());
             city.setLon(place.getLatLng().longitude);
             city.setLat(place.getLatLng().latitude);
-            mCityRepository.addCity(city, onSaveCallback);
+            cityRepository.addCity(city, onSaveCallback);
 
 
             Log.i(TAG, "Place details received: " + place.getName());

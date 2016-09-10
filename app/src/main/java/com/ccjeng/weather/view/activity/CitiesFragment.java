@@ -34,18 +34,18 @@ import butterknife.ButterKnife;
 public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> implements CitiesView {
 
     @BindView(R.id.add_city_fab)
-    FloatingActionButton mAddCityFab;
+    FloatingActionButton addCityFab;
 
     @BindView(R.id.recyclerview)
-    RecyclerView mCitiesRecyclerView;
+    RecyclerView citiesRecyclerView;
 
     @BindView(R.id.empty_view)
-    LinearLayout mEmptyView;
+    LinearLayout emptyView;
 
     @BindView(R.id.swiperefresh)
-    SwipeRefreshLayout mSwipeRefresh;
+    SwipeRefreshLayout swipeRefresh;
 
-    private CitiesAdapter mAdapter;
+    private CitiesAdapter adapter;
     private GoogleApiClientProvider googleApiClientProvider;
 
 
@@ -55,11 +55,10 @@ public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> im
         View view = inflater.inflate(R.layout.fragment_cities, container, false);
         ButterKnife.bind(this, view);
 
-        mAdapter = new CitiesAdapter(getActivity());
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        mCitiesRecyclerView.setLayoutManager(layoutManager);
-        mCitiesRecyclerView.setAdapter(mAdapter);
-
+        adapter = new CitiesAdapter(getActivity());
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        citiesRecyclerView.setLayoutManager(layoutManager);
+        citiesRecyclerView.setAdapter(adapter);
 
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -69,19 +68,18 @@ public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> im
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                mPresenter.onRemoveCity(mAdapter.getCities().get(viewHolder.getAdapterPosition()));
-                mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
-                if (mAdapter.getCities().isEmpty()) {
-                    mCitiesRecyclerView.setVisibility(View.GONE);
-                    mEmptyView.setVisibility(View.VISIBLE);
+                presenter.onRemoveCity(adapter.getCities().get(viewHolder.getAdapterPosition()));
+                adapter.onItemDismiss(viewHolder.getAdapterPosition());
+                if (adapter.getCities().isEmpty()) {
+                    citiesRecyclerView.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
                 }
             }
         };
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(mCitiesRecyclerView);
+        itemTouchHelper.attachToRecyclerView(citiesRecyclerView);
 
-        mPresenter.reloadCities();
 
         return view;
     }
@@ -99,15 +97,16 @@ public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> im
     }
 
     private void initialize() {
-        mPresenter.setAdapter(mAdapter);
-        mPresenter.setGoogleApiClient(googleApiClientProvider.getApiClient());
-        mAddCityFab.setOnClickListener(new View.OnClickListener() {
+        presenter.setAdapter(adapter);
+        presenter.setGoogleApiClient(googleApiClientProvider.getApiClient());
+        addCityFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.onClickAddCity();
+                presenter.onClickAddCity();
             }
         });
-        mSwipeRefresh.setOnRefreshListener(mPresenter);
+        swipeRefresh.setOnRefreshListener(presenter);
+        presenter.reloadCities();
     }
 
     @Override
@@ -117,7 +116,7 @@ public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> im
 
     @Override
     public void onDestroy() {
-        mPresenter.onDestory();
+        presenter.onDestory();
         super.onDestroy();
     }
 
@@ -139,24 +138,24 @@ public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> im
 
     @Override
     public void addCity(City city) {
-        mAdapter.addCity(city);
-        mCitiesRecyclerView.setVisibility(View.VISIBLE);
-        mEmptyView.setVisibility(View.GONE);
+        adapter.addCity(city);
+        citiesRecyclerView.setVisibility(View.VISIBLE);
+        emptyView.setVisibility(View.GONE);
     }
 
     @Override
     public void addCities(List<City> cities) {
-        mAdapter.setCities((ArrayList) cities);
+        adapter.setCities((ArrayList) cities);
         if (cities != null && !cities.isEmpty()) {
-            mCitiesRecyclerView.setVisibility(View.VISIBLE);
-            mEmptyView.setVisibility(View.GONE);
+            citiesRecyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void updateCity(City city) {
-        mSwipeRefresh.setRefreshing(false);
-        mAdapter.updateCity(city);
+        swipeRefresh.setRefreshing(false);
+        adapter.updateCity(city);
     }
 
     @Override

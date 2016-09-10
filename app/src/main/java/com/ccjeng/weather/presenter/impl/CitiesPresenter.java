@@ -10,8 +10,9 @@ import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.presenter.CitiesView;
 import com.ccjeng.weather.presenter.base.BasePresenter;
 import com.ccjeng.weather.repository.ICityRepository;
+import com.ccjeng.weather.repository.impl.CacheRepository;
 import com.ccjeng.weather.repository.impl.CityRepository;
-import com.ccjeng.weather.repository.impl.WeatherService;
+import com.ccjeng.weather.repository.impl.Repository;
 import com.ccjeng.weather.view.adapter.CitiesAdapter;
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -21,72 +22,121 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by andycheng on 2016/9/5.
  */
-public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeRefreshLayout.OnRefreshListener{
+public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeRefreshLayout.OnRefreshListener {
 
     private final String TAG = this.getClass().getSimpleName();
-    private Context mContext;
-    private CitiesView mCitiesView;
+    private Context context;
+    private CitiesView citiesView;
     private GoogleApiClient googleApiClient;
-    private CityRepository mCityRepository;
-    private CitiesAdapter mCitiesAdapter;
+    private CityRepository cityRepository;
+    private Repository repository;
+    private CitiesAdapter citiesAdapter;
+    private CompositeSubscription subscriptions;
+
 
     public CitiesPresenter(CitiesView citiesView, Context context) {
-        this.mCitiesView = citiesView;
-        this.mContext = context;
-        mCityRepository = new CityRepository();
+        this.citiesView = citiesView;
+        this.context = context;
+        cityRepository = new CityRepository();
+        repository = new Repository();
+        this.subscriptions = new CompositeSubscription();
     }
 
     public void onClickAddCity() {
-        mCitiesView.onAddCityButtonSelected();
+        citiesView.onAddCityButtonSelected();
     }
 
-    public void reloadCities() {
-
-        mCityRepository.getCities().doOnNext(new Action1<List<City>>() {
+    public void addNewCity(City city) {
+/*
+        subscriptions.add(Observable.just(city).doOnNext(new Action1<City>() {
             @Override
-            public void call(List<City> cities) {
-                mCitiesView.addCities(cities);
-            }
-        }).flatMapIterable(new Func1<List<City>, Iterable<City>>() {
-            @Override
-            public Iterable<City> call(List<City> cities) {
-                return cities;
+            public void call(City city) {
+                citiesView.addCity(city);
             }
         }).flatMap(new Func1<City, Observable<City>>() {
             @Override
             public Observable<City> call(City city) {
-                Log.d(TAG, "city = " + city.getName());
                 return WeatherService.getWeatherData(city);
             }
         }).subscribe(new Subscriber<City>() {
             @Override
             public void onCompleted() {
+                subscriptions.remove(this);
+                this.unsubscribe();
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.e(TAG, e.getMessage());
+                Log.e(TAG, "addNewCity = " + e.toString());
             }
 
             @Override
             public void onNext(City city) {
-
-                Log.d(TAG, city.getCityWeather().getCurrently().getSummary());
-                mCitiesView.updateCity(city);
+                citiesView.updateCity(city);
             }
-        });
+        }));
+        */
+
+
     }
 
-    public void onRemoveCity(City city) {
+    public void reloadCities() {
+
+        Log.d(TAG, "reloadCities");
+
+        subscriptions.add(cityRepository.getCities()
+                .doOnNext(new Action1<List<City>>() {
+                    @Override
+                    public void call(List<City> cities) {
+                        Log.d(TAG, "cities.size = " + cities.size());
+                        citiesView.addCities(cities);
+                    }
+                }).flatMapIterable(new Func1<List<City>, Iterable<City>>() {
+                    @Override
+                    public Iterable<City> call(List<City> cities) {
+                        return cities;
+                    }
+                }).flatMap(new Func1<City, Observable<City>>() {
+                    @Override
+                    public Observable<City> call(City city) {
+                        Log.d(TAG, "city = " + city.getName());
+                        return repository.getWeatherData(city, true);
+                    }
+                }).subscribe(new Subscriber<City>() {
+                    @Override
+                    public void onCompleted() {
+                        subscriptions.remove(this);
+                        this.unsubscribe();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "reloadCities = " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(City city) {
+                        citiesView.updateCity(city);
+                    }
+                }));
+
+
+    }
+
+    public void onRemoveCity(final City city) {
 
         ICityRepository.onDeleteCallback callback = new ICityRepository.onDeleteCallback() {
             @Override
             public void onSuccess(String cityName) {
-                Toast.makeText(mContext, cityName + " " + mContext.getString(R.string.msg_deleted), Toast.LENGTH_LONG).show();
+                CacheRepository cache = new CacheRepository();
+                cache.removeCache(city);
+
+                Toast.makeText(context, cityName + " " + context.getString(R.string.msg_deleted), Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -95,12 +145,13 @@ public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeR
             }
         };
 
-        mCityRepository.removeCity(city,callback);
+        cityRepository.removeCity(city, callback);
+
 
     }
 
     public void setAdapter(CitiesAdapter adapter) {
-        this.mCitiesAdapter = adapter;
+        this.citiesAdapter = adapter;
     }
 
     public void setGoogleApiClient(GoogleApiClient googleApiClient) {
@@ -109,11 +160,11 @@ public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeR
 
     @Override
     public void onDestory() {
-
+        subscriptions.unsubscribe();
     }
 
     @Override
     public void onRefresh() {
-
+        reloadCities();
     }
 }

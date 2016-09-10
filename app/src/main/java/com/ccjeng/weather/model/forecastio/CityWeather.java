@@ -34,11 +34,11 @@ public class CityWeather {
     private long fetchtime;
 
 
-    public long getFetchtime() {
+    public long getFetchTime() {
         return fetchtime;
     }
 
-    public void setFetchtime(long fetchtime) {
+    public void setFetchTime(long fetchtime) {
         this.fetchtime = fetchtime;
     }
 

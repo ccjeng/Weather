@@ -6,7 +6,7 @@ import io.realm.annotations.PrimaryKey;
 /**
  * Created by andycheng on 2016/9/9.
  */
-public class WeatherCurrenly extends RealmObject {
+public class WeatherCurrently extends RealmObject {
 
     @PrimaryKey
     private String id;

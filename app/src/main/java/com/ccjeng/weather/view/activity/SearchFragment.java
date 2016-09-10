@@ -3,13 +3,14 @@ package com.ccjeng.weather.view.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 
 import com.ccjeng.weather.R;
+import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.presenter.SearchView;
 import com.ccjeng.weather.presenter.impl.SearchPresenter;
 import com.ccjeng.weather.view.GoogleApiClientProvider;
@@ -47,8 +48,8 @@ public class SearchFragment extends BaseFragment<SearchView, SearchPresenter> im
     }
 
     private void initialize() {
-        mPresenter.setGoogleApiClient(googleApiClientProvider.getApiClient());
-        mPresenter.setAutocompleteView();
+        presenter.setGoogleApiClient(googleApiClientProvider.getApiClient());
+        presenter.setAutocompleteView();
     }
 
     @Override
@@ -61,7 +62,7 @@ public class SearchFragment extends BaseFragment<SearchView, SearchPresenter> im
 
     @Override
     public void onDestroy() {
-        mPresenter.onDestory();
+        presenter.onDestory();
         super.onDestroy();
     }
 
@@ -72,16 +73,24 @@ public class SearchFragment extends BaseFragment<SearchView, SearchPresenter> im
 
     @Override
     public void setAutocompleteView() {
-        autocompleteView.setOnItemClickListener(mPresenter);
-        mPresenter.setPlaceAutocompleteAdapter();
-        autocompleteView.setAdapter(mPresenter.getPlaceAutocompleteAdapter());
+        autocompleteView.setOnItemClickListener(presenter);
+        presenter.setPlaceAutocompleteAdapter();
+        autocompleteView.setAdapter(presenter.getPlaceAutocompleteAdapter());
     }
 
     @Override
-    public void onCitySuggestionSelected() {
+    public void onCitySuggestionSelected(City city) {
+
+        getFragmentManager().popBackStack();
+        getFragmentManager().executePendingTransactions();
+        Log.d(TAG, "onCitySuggestionSelected = " + city.getName());
+        ((CitiesFragment) getFragmentManager().findFragmentById(R.id.fragment)).presenter.addNewCity(city);
+
+        /*
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment, new CitiesFragment());
         transaction.addToBackStack(null);
         transaction.commit();
+        */
     }
 }

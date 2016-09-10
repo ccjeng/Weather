@@ -1,7 +1,6 @@
 package com.ccjeng.weather.view.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
+import com.mikepenz.iconics.view.IconicsImageView;
 
 import java.util.ArrayList;
 
@@ -97,6 +97,8 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
 
         if (cities.get(position).getCityWeather() != null) {
           //  holder.view.setBackgroundColor(city.getCityWeather().getCurrently().getColor(context));
+
+            holder.icon.setIcon(city.getCityWeather().getCurrently().getIconImage(context));
             double temperature = city.getCityWeather().getCurrently().getTemperature();
             if (!celsius) {
                 temperature = temperature * 1.8 + 32;
@@ -105,13 +107,12 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
 
             holder.temp.setText(temperature + "°");
             holder.temp.setVisibility(View.VISIBLE);
-            holder.summary.setVisibility(View.VISIBLE);
-            holder.summary.setText(city.getCityWeather().getCurrently().getSummary());
+            holder.icon.setVisibility(View.VISIBLE);
             holder.progressBar.setVisibility(View.GONE);
         } else {
-            holder.view.setBackgroundColor(Color.GRAY);
+           // holder.view.setBackgroundColor(Color.GRAY);
             holder.temp.setVisibility(View.GONE);
-            holder.summary.setVisibility(View.INVISIBLE);
+            holder.icon.setVisibility(View.GONE);
             holder.progressBar.setVisibility(View.VISIBLE);
         }
 /*
@@ -142,17 +143,16 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
         TextView cityName;
         TextView temp;
         LinearLayout view;
-        TextView summary;
         ProgressBar progressBar;
+        IconicsImageView icon;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.view = (LinearLayout) itemView.findViewById(R.id.container);
             cityName = (TextView) itemView.findViewById(R.id.city_name);
             temp = (TextView) itemView.findViewById(R.id.temp);
-            summary = (TextView) itemView.findViewById(R.id.summary);
             progressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
-
+            icon = (IconicsImageView) itemView.findViewById(R.id.icon);
         }
     }
 
