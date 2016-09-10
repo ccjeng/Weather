@@ -2,6 +2,8 @@ package com.ccjeng.weather.model;
 
 import com.ccjeng.weather.model.forecastio.CityWeather;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
@@ -9,7 +11,7 @@ import io.realm.annotations.PrimaryKey;
 /**
  * Created by Fernando on 5/11/2015.
  */
-public class City extends RealmObject {
+public class City extends RealmObject implements Serializable {
 
     @PrimaryKey
     private String id;

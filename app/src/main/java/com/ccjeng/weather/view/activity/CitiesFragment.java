@@ -20,6 +20,7 @@ import com.ccjeng.weather.presenter.CitiesView;
 import com.ccjeng.weather.presenter.impl.CitiesPresenter;
 import com.ccjeng.weather.view.GoogleApiClientProvider;
 import com.ccjeng.weather.view.adapter.CitiesAdapter;
+import com.ccjeng.weather.view.adapter.RecyclerItemClickListener;
 import com.ccjeng.weather.view.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -106,6 +107,7 @@ public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> im
             }
         });
         swipeRefresh.setOnRefreshListener(presenter);
+        citiesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), presenter));
         presenter.reloadCities();
     }
 

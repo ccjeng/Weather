@@ -4,7 +4,9 @@ package com.ccjeng.weather.model.forecastio;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CityWeather {
+import java.io.Serializable;
+
+public class CityWeather implements Serializable {
 
     @SerializedName("latitude")
     @Expose

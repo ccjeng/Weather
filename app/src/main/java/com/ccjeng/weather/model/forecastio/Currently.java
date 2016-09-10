@@ -8,7 +8,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mikepenz.iconics.IconicsDrawable;
 
-public class Currently {
+import java.io.Serializable;
+
+public class Currently implements Serializable {
 
     @SerializedName("time")
     @Expose

@@ -4,10 +4,11 @@ package com.ccjeng.weather.model.forecastio;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hourly {
+public class Hourly implements Serializable {
 
     @SerializedName("summary")
     @Expose

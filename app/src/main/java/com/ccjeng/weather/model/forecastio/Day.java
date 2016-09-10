@@ -4,7 +4,9 @@ package com.ccjeng.weather.model.forecastio;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Day {
+import java.io.Serializable;
+
+public class Day implements Serializable {
 
     @SerializedName("time")
     @Expose

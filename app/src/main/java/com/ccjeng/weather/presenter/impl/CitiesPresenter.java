@@ -1,8 +1,10 @@
 package com.ccjeng.weather.presenter.impl;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.ccjeng.weather.R;
@@ -13,7 +15,9 @@ import com.ccjeng.weather.repository.ICityRepository;
 import com.ccjeng.weather.repository.impl.CacheRepository;
 import com.ccjeng.weather.repository.impl.CityRepository;
 import com.ccjeng.weather.repository.impl.Repository;
+import com.ccjeng.weather.view.activity.DetailActivity;
 import com.ccjeng.weather.view.adapter.CitiesAdapter;
+import com.ccjeng.weather.view.adapter.RecyclerItemClickListener;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.List;
@@ -27,7 +31,8 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by andycheng on 2016/9/5.
  */
-public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeRefreshLayout.OnRefreshListener {
+public class CitiesPresenter extends BasePresenter<CitiesView>
+        implements RecyclerItemClickListener.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private final String TAG = this.getClass().getSimpleName();
     private Context context;
@@ -133,5 +138,18 @@ public class CitiesPresenter extends BasePresenter<CitiesView> implements SwipeR
     @Override
     public void onRefresh() {
         reloadCities();
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
+        City city = citiesAdapter.getCities().get(position);
+        if (city != null && city.getCityWeather().getCurrently() != null) {
+
+            Intent i = new Intent(context, DetailActivity.class);
+            i.putExtra(DetailActivity.ARG_CITY, city);
+            context.startActivity(i);
+        }
+
     }
 }
