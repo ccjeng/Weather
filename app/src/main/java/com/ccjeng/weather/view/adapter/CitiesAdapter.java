@@ -1,6 +1,7 @@
 package com.ccjeng.weather.view.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
+import com.ccjeng.weather.utils.Formatter;
 import com.mikepenz.iconics.view.IconicsImageView;
 
 import java.util.ArrayList;
@@ -77,9 +79,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = null;
-
-        view = inflater.inflate(R.layout.city_view, parent, false);
+        View view = inflater.inflate(R.layout.city_view, parent, false);
         /*
         if (compact) {
             view = inflater.inflate(R.layout.city_view_compact, parent, false);
@@ -99,18 +99,16 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
           //  holder.view.setBackgroundColor(city.getCityWeather().getCurrently().getColor(context));
 
             holder.icon.setIcon(city.getCityWeather().getCurrently().getIconImage(context));
-            double temperature = city.getCityWeather().getCurrently().getTemperature();
-            if (!celsius) {
-                temperature = temperature * 1.8 + 32;
-            }
-            temperature = Math.round(temperature * 100.0) / 100.0;
+            holder.icon.setColor(city.getCityWeather().getCurrently().getIconColor(context));
 
-            holder.temp.setText(temperature + "°");
+            double temperature = city.getCityWeather().getCurrently().getTemperature();
+
+            holder.temp.setText(Formatter.formatTemperature(temperature,celsius)  + "°");
             holder.temp.setVisibility(View.VISIBLE);
             holder.icon.setVisibility(View.VISIBLE);
             holder.progressBar.setVisibility(View.GONE);
         } else {
-           // holder.view.setBackgroundColor(Color.GRAY);
+            holder.view.setBackgroundColor(Color.GRAY);
             holder.temp.setVisibility(View.GONE);
             holder.icon.setVisibility(View.GONE);
             holder.progressBar.setVisibility(View.VISIBLE);

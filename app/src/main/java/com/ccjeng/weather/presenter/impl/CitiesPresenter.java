@@ -15,7 +15,7 @@ import com.ccjeng.weather.repository.ICityRepository;
 import com.ccjeng.weather.repository.impl.CacheRepository;
 import com.ccjeng.weather.repository.impl.CityRepository;
 import com.ccjeng.weather.repository.impl.Repository;
-import com.ccjeng.weather.view.activity.DetailActivity;
+import com.ccjeng.weather.view.activity.WeatherActivity;
 import com.ccjeng.weather.view.adapter.CitiesAdapter;
 import com.ccjeng.weather.view.adapter.RecyclerItemClickListener;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -146,8 +146,8 @@ public class CitiesPresenter extends BasePresenter<CitiesView>
         City city = citiesAdapter.getCities().get(position);
         if (city != null && city.getCityWeather().getCurrently() != null) {
 
-            Intent i = new Intent(context, DetailActivity.class);
-            i.putExtra(DetailActivity.ARG_CITY, city);
+            Intent i = new Intent(context, WeatherActivity.class);
+            i.putExtra(WeatherActivity.ARG_CITY, city);
             context.startActivity(i);
         }
 

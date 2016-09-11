@@ -1,8 +1,12 @@
 
 package com.ccjeng.weather.model.forecastio;
 
+import android.content.Context;
+
+import com.ccjeng.weather.utils.IconManager;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,6 +49,15 @@ public class Daily implements Serializable {
      */
     public String getIcon() {
         return icon;
+    }
+
+
+    public IconicsDrawable getIconImage(Context context) {
+        return IconManager.getIconResource(icon, context);
+    }
+
+    public int getIconColor(Context context) {
+        return IconManager.getIconColor(icon, context);
     }
 
     /**

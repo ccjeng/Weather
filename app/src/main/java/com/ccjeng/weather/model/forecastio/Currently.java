@@ -113,6 +113,10 @@ public class Currently implements Serializable {
         return IconManager.getIconResource(icon, context);
     }
 
+    public int getIconColor(Context context) {
+        return IconManager.getIconColor(icon, context);
+    }
+
     /**
      * 
      * @return
