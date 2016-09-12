@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.utils.WeatherPagerEnum;
 import com.ccjeng.weather.view.activity.viewholder.CurrentView;
+import com.ccjeng.weather.view.activity.viewholder.DaysView;
+import com.ccjeng.weather.view.activity.viewholder.HoursView;
 
 /**
  * Created by andycheng on 2016/9/11.
@@ -54,11 +56,13 @@ public class TabFragment extends Fragment {
                 break;
 
             case 1:
-
+                HoursView hoursView = new HoursView(rootView, getActivity(), city);
+                hoursView.setData();
                 break;
 
             case 2:
-
+                DaysView daysView = new DaysView(rootView, getActivity(), city);
+                daysView.setData();
                 break;
         }
 

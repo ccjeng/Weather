@@ -14,10 +14,10 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingBottom="35dp"
+        android:paddingBottom="25dp"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
-        android:paddingTop="35dp">
+        android:paddingTop="25dp">
 
 
         <TextView
@@ -44,6 +44,7 @@
 
         <com.mikepenz.iconics.view.IconicsImageView
             android:id="@+id/icon"
+            android:layout_marginTop="8dp"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:clickable="false"

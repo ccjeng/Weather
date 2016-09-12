@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
+import com.ccjeng.weather.utils.Formatter;
 import com.ccjeng.weather.view.adapter.TabsPagerAdapter;
 
 import butterknife.BindView;
@@ -54,7 +55,8 @@ public class WeatherActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
         getSupportActionBar().setTitle(city.getName());
-
+        getSupportActionBar().setSubtitle(getString(R.string.last_update,
+                Formatter.formatTimeWithDayIfNotToday(this, city.getCityWeather().getFetchTime())));
     }
 
     @Override

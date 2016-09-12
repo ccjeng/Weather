@@ -7,34 +7,30 @@ import android.view.View;
 
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
-import com.ccjeng.weather.view.adapter.WeatherCurrentAdapter;
+import com.ccjeng.weather.view.adapter.WeatherDaysAdapter;
 
 /**
- * Created by andycheng on 2016/9/11.
+ * Created by andycheng on 2016/9/12.
  */
-public class CurrentView {
-
+public class DaysView {
     private final String TAG = this.getClass().getSimpleName();
 
     private View view;
     private Context context;
     private City city;
+    private RecyclerView recyclerView;
 
-    private RecyclerView todayRecyclerView;
-
-    public CurrentView(View view, Context context, City city) {
+    public DaysView(View view, Context context, City city) {
         this.view = view;
         this.context = context;
         this.city = city;
 
-        todayRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-        todayRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
 
-
     public void setData() {
-        WeatherCurrentAdapter adapter = new WeatherCurrentAdapter(city);
-        todayRecyclerView.setAdapter(adapter);
+        WeatherDaysAdapter adapter = new WeatherDaysAdapter(city);
+        recyclerView.setAdapter(adapter);
     }
 }
