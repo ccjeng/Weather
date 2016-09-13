@@ -10,7 +10,7 @@ public class WeatherHourly extends RealmObject {
 
     @PrimaryKey
     private String id;
-    private Double time;
+    private Integer time;
     private String summary;
     private String icon;
     private Double precipIntensity;
@@ -130,11 +130,11 @@ public class WeatherHourly extends RealmObject {
         this.temperature = temperature;
     }
 
-    public Double getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(Double time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 

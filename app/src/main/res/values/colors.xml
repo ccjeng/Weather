@@ -7,14 +7,14 @@
 
     <color name="rain">#779CCA</color>
     <color name="clear_day">#ffcf57</color>
-    <color name="clear_night">#292929</color>
+    <color name="clear_night">#088da5</color>
     <color name="snow">#addee5</color>
     <color name="sleet">#9f9f9f</color>
-    <color name="wind">#31343d</color>
+    <color name="wind">#003366</color>
     <color name="fog">#7B915A</color>
     <color name="cloudy">#4b5859</color>
     <color name="partly_cloudy_day">#e7c161</color>
-    <color name="partly_cloudy_night">#333f48</color>
+    <color name="partly_cloudy_night">#088da5</color>
     <color name="hail">#3D3D3D</color>
     <color name="thunderstorm">#6a486e</color>
     <color name="tornado">#995574</color>

@@ -14,7 +14,7 @@ public class Day implements Serializable {
 
     @SerializedName("time")
     @Expose
-    private Double time;
+    private Integer time;
     @SerializedName("summary")
     @Expose
     private String summary;
@@ -96,7 +96,7 @@ public class Day implements Serializable {
      * @return
      *     The time
      */
-    public Double getTime() {
+    public Integer getTime() {
         return time;
     }
 
@@ -105,7 +105,7 @@ public class Day implements Serializable {
      * @param time
      *     The time
      */
-    public void setTime(Double time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 

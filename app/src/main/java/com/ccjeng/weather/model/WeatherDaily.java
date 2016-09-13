@@ -10,7 +10,7 @@ public class WeatherDaily extends RealmObject {
 
     @PrimaryKey
     private String id;
-    private Double time;
+    private Integer time;
     private String summary;
     private String icon;
     private Double sunriseTime;
@@ -238,11 +238,11 @@ public class WeatherDaily extends RealmObject {
         this.temperatureMinTime = temperatureMinTime;
     }
 
-    public Double getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(Double time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 

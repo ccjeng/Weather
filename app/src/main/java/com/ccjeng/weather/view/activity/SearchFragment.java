@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 
 import com.ccjeng.weather.R;
@@ -37,6 +38,7 @@ public class SearchFragment extends BaseFragment<SearchView, SearchPresenter> im
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, view);
+        autocompleteView.requestFocus();
 
         return view;
     }
@@ -80,16 +82,17 @@ public class SearchFragment extends BaseFragment<SearchView, SearchPresenter> im
     @Override
     public void onCitySuggestionSelected(City city) {
 
+        //Hide soft keyboard
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
         getFragmentManager().popBackStack();
         getFragmentManager().executePendingTransactions();
         Log.d(TAG, "onCitySuggestionSelected = " + city.getName());
         ((CitiesFragment) getFragmentManager().findFragmentById(R.id.fragment)).presenter.addNewCity(city);
 
-        /*
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment, new CitiesFragment());
-        transaction.addToBackStack(null);
-        transaction.commit();
-        */
     }
 }

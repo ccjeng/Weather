@@ -35,7 +35,7 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public int getItemViewType(int position) {
         if (position == WeatherCurrentAdapter.TEMPERATURE) {
-            return WeatherCurrentAdapter.CURRENT;
+            return WeatherCurrentAdapter.TEMPERATURE;
         }
         if (position == WeatherCurrentAdapter.CURRENT) {
             return WeatherCurrentAdapter.CURRENT;
@@ -141,7 +141,7 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
                 todayPressure.setText(Formatter.DoubleToString(city.getCityWeather().getCurrently().getPressure()) + " hPa");
 
-                todayHumidity.setText(city.getCityWeather().getCurrently().getHumidity() + " %");
+                todayHumidity.setText(city.getCityWeather().getCurrently().getHumidity()*100 + " %");
 
                 todayCloudCover.setText(city.getCityWeather().getCurrently().getCloudCover()*100 + " %");
 

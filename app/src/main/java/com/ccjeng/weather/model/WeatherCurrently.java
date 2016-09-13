@@ -14,7 +14,7 @@ public class WeatherCurrently extends RealmObject {
     private String timezone;
     private Integer offset;
     private long fetchtime;
-    private Double time;
+    private Integer time;
     private String summary;
     private String icon;
     private Double precipIntensity;
@@ -186,11 +186,11 @@ public class WeatherCurrently extends RealmObject {
         this.temperature = temperature;
     }
 
-    public Double getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(Double time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 
