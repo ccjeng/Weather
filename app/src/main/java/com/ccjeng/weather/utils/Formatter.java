@@ -4,9 +4,11 @@ import android.content.Context;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Created by andycheng on 2016/9/11.
@@ -20,7 +22,7 @@ public class Formatter {
         }
         value = Math.round(value * 100.0) / 100.0;
 
-        return String.valueOf(value);
+        return DoubleToString(value);
     }
 
 
@@ -46,7 +48,14 @@ public class Formatter {
 
 
     public static String DoubleToString(Double value) {
-        return String.valueOf(new DecimalFormat("#.#").format(value));
+        return String.valueOf(new DecimalFormat("#.0").format(value));
+    }
+
+
+    public static String getWeekNameLocate(Integer timeStamp) {
+
+        return new SimpleDateFormat("EEEE", Locale.getDefault()).format(new Date(timeStamp * 1000L));
+
     }
 
     public static String getWindBearingString(Double windBearing) {

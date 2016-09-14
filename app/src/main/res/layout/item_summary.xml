@@ -26,7 +26,8 @@
             android:clickable="false"
             android:gravity="start"
             android:scaleType="fitXY"
-            android:text=""/>
+            android:text=""
+            android:visibility="gone"/>
 
         <TextView
 

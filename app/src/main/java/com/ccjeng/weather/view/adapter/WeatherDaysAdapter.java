@@ -15,10 +15,7 @@ import com.ccjeng.weather.model.forecastio.Day;
 import com.ccjeng.weather.utils.Formatter;
 import com.mikepenz.iconics.view.IconicsImageView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -112,6 +109,7 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private List<Day> day = city.getCityWeather().getDaily().getDay();
         private LinearLayout dayLinear;
         private TextView[] dayName = new TextView[day.size()];
+        private TextView[] rainPre = new TextView[day.size()];
         private TextView[] tempMax = new TextView[day.size()];
         private TextView[] tempMin = new TextView[day.size()];
         private TextView[] summary = new TextView[day.size()];
@@ -123,6 +121,7 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             for (int i = 0; i < day.size(); i++) {
                 View view = View.inflate(context, R.layout.item_days_line, null);
                 dayName[i] = (TextView) view.findViewById(R.id.day);
+                rainPre[i] = (TextView) view.findViewById(R.id.rain);
                 tempMax[i] = (TextView) view.findViewById(R.id.tempMax);
                 tempMin[i] = (TextView) view.findViewById(R.id.tempMin);
                 summary[i] = (TextView) view.findViewById(R.id.summary);
@@ -141,13 +140,14 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 dayName[1].setText("Tomorrow");
                 for(int i = 0; i < day.size(); i++) {
                     if(i > 1) {
-                        dayName[i].setText(new SimpleDateFormat("EEEE", Locale.getDefault()).format(new Date(day.get(i).getTime() * 1000L)).toUpperCase());
+                        dayName[i].setText(Formatter.getWeekNameLocate(day.get(i).getTime()));
                     }
                     tempMax[i].setText(Formatter.formatTemperature(day.get(i).getTemperatureMax(), true) + " °");
                     tempMin[i].setText(Formatter.formatTemperature(day.get(i).getTemperatureMin(), true) + " °");
                     icon[i].setIcon(day.get(i).getIconImage(context));
                     icon[i].setColor(day.get(i).getIconColor(context));
                     summary[i].setText(day.get(i).getSummary());
+                    rainPre[i].setText(Formatter.DoubleToString(day.get(i).getPrecipProbability()*100) + " %");
                 }
 
 

@@ -136,14 +136,14 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             try {
                 todayFeelLike.setText(Formatter.formatTemperature(city.getCityWeather().getCurrently().getApparentTemperature(), true) + " °");
 
-                todayWind.setText(city.getCityWeather().getCurrently().getWindSpeed() + "kmh "
+                todayWind.setText(city.getCityWeather().getCurrently().getWindSpeed() + " kmh "
                         + Formatter.getWindBearingString(city.getCityWeather().getCurrently().getWindBearing()));
 
                 todayPressure.setText(Formatter.DoubleToString(city.getCityWeather().getCurrently().getPressure()) + " hPa");
 
-                todayHumidity.setText(city.getCityWeather().getCurrently().getHumidity()*100 + " %");
+                todayHumidity.setText(Formatter.DoubleToString(city.getCityWeather().getCurrently().getHumidity()*100) + " %");
 
-                todayCloudCover.setText(city.getCityWeather().getCurrently().getCloudCover()*100 + " %");
+                todayCloudCover.setText(Formatter.DoubleToString(city.getCityWeather().getCurrently().getCloudCover()*100) + " %");
 
                 todayPrecipitation.setText(Formatter.DoubleToString(city.getCityWeather().getCurrently().getPrecipProbability()*100) + " % ( "
                         + Formatter.DoubleToString(city.getCityWeather().getCurrently().getPrecipIntensity()*100) + " cm)");
