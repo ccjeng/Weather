@@ -1,6 +1,7 @@
 package com.ccjeng.weather.view.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,8 +14,14 @@ import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.forecastio.Day;
 import com.ccjeng.weather.utils.Formatter;
+import com.github.mikephil.charting.charts.CombinedChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.CombinedData;
+import com.github.mikephil.charting.data.LineData;
 import com.mikepenz.iconics.view.IconicsImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -86,6 +93,8 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         IconicsImageView icon;
         @BindView(R.id.summary)
         TextView summary;
+        @BindView(R.id.chart)
+        CombinedChart chart;
 
         public SummaryViewHolder(View itemView) {
             super(itemView);
@@ -98,9 +107,78 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 icon.setColor(city.getCityWeather().getDaily().getIconColor(context));
                 summary.setText(city.getCityWeather().getDaily().getSummary());
 
+                //
+
+                List<Day> day = city.getCityWeather().getDaily().getDay();
+                ArrayList<String> xVals = new ArrayList<String>();
+                for (int i = 0; i < day.size(); i++) {
+                    xVals.add(Formatter.getWeekNameLocate(day.get(i).getTime()));
+                }
+                chart.getAxisLeft().setEnabled(false);
+                chart.getAxisRight().setEnabled(true);
+                chart.setBackgroundColor(Color.WHITE);
+                chart.setDrawBorders(false);
+                chart.setDragEnabled(false);
+                chart.setTouchEnabled(false);
+                chart.setPinchZoom(false);
+                chart.setScaleEnabled(false);
+                chart.setDrawGridBackground(false);
+                chart.setDescription("");
+
+                chart.setDrawOrder(new CombinedChart.DrawOrder[] {
+                        CombinedChart.DrawOrder.BAR,  CombinedChart.DrawOrder.CANDLE, CombinedChart.DrawOrder.LINE
+                });
+
+
+                XAxis xAxis = chart.getXAxis();
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+                YAxis rightAxis = chart.getAxisRight();
+                rightAxis.setDrawGridLines(false);
+                rightAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+
+                YAxis leftAxis = chart.getAxisLeft();
+                leftAxis.setDrawGridLines(false);
+
+                CombinedData data = new CombinedData(xVals);
+
+                data.setData(generateLineData());
+                chart.animateX(1000);
+                chart.setData(data);
+                chart.invalidate();
+
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
+        }
+
+        private LineData generateLineData() {
+
+            LineData d = new LineData();
+/*
+            ArrayList<Entry> entries = new ArrayList<Entry>();
+
+            for (int i = 0; i < stockItems.size(); i++) {
+                entries.add(new Entry(Float.valueOf(stockItems.get(i).getClose()), i));
+            }
+
+            LineDataSet set = new LineDataSet(entries, currentStock.getName());
+            set.setDrawCircles(false);
+            //set.setDrawCubic(true);
+            set.setDrawFilled(false);
+            //historicalDataSet.setFillAlpha(GRAPHIC_FILL_ALPHA);
+            set.setCubicIntensity(GRAPHIC_CUBIC_INTENSITY);
+            set.setLineWidth(GRAPHIC_LINE_WIDTH);
+            set.setColor(context.getResources().getColor(R.color.colorPrimary));
+
+            set.setDrawValues(false);
+
+            set.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+            d.addDataSet(set);
+*/
+            return d;
+
         }
     }
 
