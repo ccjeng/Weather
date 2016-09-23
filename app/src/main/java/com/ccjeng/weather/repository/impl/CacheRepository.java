@@ -193,6 +193,7 @@ public class CacheRepository {
         for (Hour hour : city.getCityWeather().getHourly().getHour()) {
             WeatherHourly h = new WeatherHourly();
             h.setId(Utils.getUniqueID());
+            h.setTime(hour.getTime());
             h.setCityId(city.getId());
             h.setSummary(hour.getSummary());
             h.setIcon(hour.getIcon());

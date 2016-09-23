@@ -43,14 +43,20 @@
                     android:id="@+id/rain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="22°"/>
+                    android:text="22°"
+                    android:drawablePadding="8dp"
+                    android:drawableStart="@drawable/icon_humidity"
+                    />
 
                 <TextView
                     android:id="@+id/tempMin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="22°"/>
+                    android:text="22°"
+                    android:drawablePadding="8dp"
+                    android:drawableStart="@drawable/icon_temp"
+                    />
 
                 <TextView
                     android:id="@+id/tempMax"

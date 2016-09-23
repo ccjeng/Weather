@@ -1,8 +1,8 @@
 package com.ccjeng.weather.utils;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,20 +15,21 @@ import java.util.Locale;
  */
 public class Formatter {
 
-
     public static String formatTemperature(Double value, boolean celsius) {
         if (!celsius) {
             value = value * 1.8 + 32;
         }
         value = Math.round(value * 100.0) / 100.0;
 
-        return DoubleToString(value);
+        return DoubleToStringP1(value);
     }
 
 
-    public static String formatTimeToString(String value, Context context) {
-        DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(context);
-        return timeFormat.format(value);
+    public static String formatTimeToString(Integer value, Context context) {
+        //DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(context);
+        //return timeFormat.format(value);
+        return DateFormat.getTimeFormat(context).format(new Date(value * 1000L));
+
     }
 
     public static String formatTimeWithDayIfNotToday(Context context, long timeInMillis) {
@@ -48,13 +49,26 @@ public class Formatter {
 
 
     public static String DoubleToString(Double value) {
-        return String.valueOf(new DecimalFormat("#.0").format(value));
+        String s = String.valueOf(new DecimalFormat("0.0").format(value));
+        if (s.equals("0.0")) {
+            s = "0";
+        }
+        return s.replace(".0","");
     }
 
+    public static String DoubleToStringP1(Double value) {
+        return  String.valueOf(new DecimalFormat("0.0").format(value));
+    }
 
     public static String getWeekNameLocate(Integer timeStamp) {
 
         return new SimpleDateFormat("EEEE", Locale.getDefault()).format(new Date(timeStamp * 1000L));
+
+    }
+
+    public static String getWeekNameEnglish(Integer timeStamp) {
+
+        return new SimpleDateFormat("EEEE", Locale.ENGLISH).format(new Date(timeStamp * 1000L)).substring(0,3).toUpperCase();
 
     }
 

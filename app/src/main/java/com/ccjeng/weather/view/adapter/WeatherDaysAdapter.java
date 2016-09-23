@@ -1,7 +1,6 @@
 package com.ccjeng.weather.view.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,11 +13,13 @@ import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.forecastio.Day;
 import com.ccjeng.weather.utils.Formatter;
-import com.github.mikephil.charting.charts.CombinedChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.CombinedData;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.mikepenz.iconics.view.IconicsImageView;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import butterknife.ButterKnife;
  */
 public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final String TAG = this.getClass().getSimpleName();
+    private final String TAG = "WeatherDaysAdapter";
     private Context context;
     private City city;
 
@@ -42,6 +43,7 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public WeatherDaysAdapter(City city) {
         this.city = city;
     }
+
     @Override
     public int getItemViewType(int position) {
         if (position == WeatherDaysAdapter.SUMMARY) {
@@ -94,7 +96,7 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @BindView(R.id.summary)
         TextView summary;
         @BindView(R.id.chart)
-        CombinedChart chart;
+        LineChart mChart;
 
         public SummaryViewHolder(View itemView) {
             super(itemView);
@@ -107,79 +109,64 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 icon.setColor(city.getCityWeather().getDaily().getIconColor(context));
                 summary.setText(city.getCityWeather().getDaily().getSummary());
 
-                //
-
+                //Set Chart
                 List<Day> day = city.getCityWeather().getDaily().getDay();
-                ArrayList<String> xVals = new ArrayList<String>();
+
+                mChart.setDrawGridBackground(false);
+                mChart.setDrawBorders(false);
+
+                mChart.getAxisLeft().setEnabled(false);
+                mChart.getAxisRight().setEnabled(false);
+                mChart.getXAxis().setDrawAxisLine(false);
+                mChart.getXAxis().setDrawGridLines(false);
+                mChart.setDescription("");
+                mChart.setTouchEnabled(false);
+                mChart.setAutoScaleMinMaxEnabled(true);
+                Legend l = mChart.getLegend();
+                l.setEnabled(false);
+
+                ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+
+                //Line Max Temperature
+                ArrayList<Entry> maxTempValues = new ArrayList<Entry>();
                 for (int i = 0; i < day.size(); i++) {
-                    xVals.add(Formatter.getWeekNameLocate(day.get(i).getTime()));
+                    String maxTemp = Formatter.formatTemperature(day.get(i).getTemperatureMax(), true);
+                    maxTempValues.add(new Entry(i, Float.valueOf(maxTemp)));
                 }
-                chart.getAxisLeft().setEnabled(false);
-                chart.getAxisRight().setEnabled(true);
-                chart.setBackgroundColor(Color.WHITE);
-                chart.setDrawBorders(false);
-                chart.setDragEnabled(false);
-                chart.setTouchEnabled(false);
-                chart.setPinchZoom(false);
-                chart.setScaleEnabled(false);
-                chart.setDrawGridBackground(false);
-                chart.setDescription("");
 
-                chart.setDrawOrder(new CombinedChart.DrawOrder[] {
-                        CombinedChart.DrawOrder.BAR,  CombinedChart.DrawOrder.CANDLE, CombinedChart.DrawOrder.LINE
-                });
+                LineDataSet max = new LineDataSet(maxTempValues, "");
+                max.setLineWidth(2.5f);
+                max.setCircleRadius(4f);
+                max.setValueTextSize(11f);
+                dataSets.add(max);
 
+                //Line Min Temperature
+                ArrayList<Entry> minTempValues = new ArrayList<Entry>();
+                for (int i = 0; i < day.size(); i++) {
+                    String minTemp = Formatter.formatTemperature(day.get(i).getTemperatureMin(), true);
+                    minTempValues.add(new Entry(i, Float.valueOf(minTemp)));
+                }
 
-                XAxis xAxis = chart.getXAxis();
-                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                LineDataSet min = new LineDataSet(minTempValues, "");
+                min.setLineWidth(2.5f);
+                min.setCircleRadius(4f);
+                min.setValueTextSize(11f);
+                dataSets.add(min);
 
-                YAxis rightAxis = chart.getAxisRight();
-                rightAxis.setDrawGridLines(false);
-                rightAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+                XAxis xAxis = mChart.getXAxis();
+                xAxis.setEnabled(false);
 
-                YAxis leftAxis = chart.getAxisLeft();
-                leftAxis.setDrawGridLines(false);
+                LineData data = new LineData(dataSets);
+                mChart.setData(data);
+                mChart.invalidate();
 
-                CombinedData data = new CombinedData(xVals);
-
-                data.setData(generateLineData());
-                chart.animateX(1000);
-                chart.setData(data);
-                chart.invalidate();
 
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
         }
 
-        private LineData generateLineData() {
 
-            LineData d = new LineData();
-/*
-            ArrayList<Entry> entries = new ArrayList<Entry>();
-
-            for (int i = 0; i < stockItems.size(); i++) {
-                entries.add(new Entry(Float.valueOf(stockItems.get(i).getClose()), i));
-            }
-
-            LineDataSet set = new LineDataSet(entries, currentStock.getName());
-            set.setDrawCircles(false);
-            //set.setDrawCubic(true);
-            set.setDrawFilled(false);
-            //historicalDataSet.setFillAlpha(GRAPHIC_FILL_ALPHA);
-            set.setCubicIntensity(GRAPHIC_CUBIC_INTENSITY);
-            set.setLineWidth(GRAPHIC_LINE_WIDTH);
-            set.setColor(context.getResources().getColor(R.color.colorPrimary));
-
-            set.setDrawValues(false);
-
-            set.setAxisDependency(YAxis.AxisDependency.LEFT);
-
-            d.addDataSet(set);
-*/
-            return d;
-
-        }
     }
 
     class DaysViewHolder extends RecyclerView.ViewHolder {
@@ -218,7 +205,7 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 dayName[1].setText("Tomorrow");
                 for(int i = 0; i < day.size(); i++) {
                     if(i > 1) {
-                        dayName[i].setText(Formatter.getWeekNameLocate(day.get(i).getTime()));
+                        dayName[i].setText(Formatter.getWeekNameEnglish(day.get(i).getTime()));
                     }
                     tempMax[i].setText(Formatter.formatTemperature(day.get(i).getTemperatureMax(), true) + " °");
                     tempMin[i].setText(Formatter.formatTemperature(day.get(i).getTemperatureMin(), true) + " °");

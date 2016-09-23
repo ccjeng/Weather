@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
  * Created by andycheng on 2016/9/12.
  */
 public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final String TAG = this.getClass().getSimpleName();
+    private final String TAG = "WeatherCurrentAdapter";
     private Context context;
     private City city;
 

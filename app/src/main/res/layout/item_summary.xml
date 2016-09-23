@@ -31,17 +31,18 @@
                 android:clickable="false"
                 android:gravity="start"
                 android:scaleType="fitXY"
-                android:text=""/>
+                android:text=""
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/summary"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 />
         </LinearLayout>
 
-        <com.github.mikephil.charting.charts.CombinedChart
+        <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
