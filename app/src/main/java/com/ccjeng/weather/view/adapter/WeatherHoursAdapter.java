@@ -111,6 +111,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private TextView[] time = new TextView[hour.size()];
         private TextView[] temp = new TextView[hour.size()];
         private TextView[] rain = new TextView[hour.size()];
+        private TextView[] cloud= new TextView[hour.size()];
         private IconicsImageView[] icon = new IconicsImageView[hour.size()];
 
         public HoursViewHolder(View itemView) {
@@ -121,6 +122,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 time[i] = (TextView) view.findViewById(R.id.one_clock);
                 rain[i] = (TextView) view.findViewById(R.id.one_humidity);
                 temp[i] = (TextView) view.findViewById(R.id.one_temp);
+                cloud[i]= (TextView) view.findViewById(R.id.one_cloud);
                 icon[i] = (IconicsImageView) view.findViewById(R.id.icon);
                 hourLinear.addView(view);
             }
@@ -134,6 +136,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     time[i].setText(Formatter.formatTimeToString(hour.get(i).getTime(), context));
                     rain[i].setText(Formatter.DoubleToString(hour.get(i).getHumidity()*100) + " %");
                     temp[i].setText(Formatter.formatTemperature(hour.get(i).getApparentTemperature(),true) + " °");
+                    cloud[i].setText(Formatter.DoubleToString(hour.get(i).getCloudCover()*100) + " %");
                     icon[i].setIcon(hour.get(i).getIconImage(context));
                     icon[i].setColor(hour.get(i).getIconColor(context));
                 }
