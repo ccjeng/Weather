@@ -134,7 +134,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 List<Hour> hour = city.getCityWeather().getHourly().getHour();
                 for(int i = 0; i < hour.size(); i++) {
                     time[i].setText(Formatter.formatTimeToString(hour.get(i).getTime(), context));
-                    rain[i].setText(Formatter.DoubleToString(hour.get(i).getHumidity()*100) + " %");
+                    rain[i].setText(Formatter.DoubleToString(hour.get(i).getPrecipProbability()*100) + " %");
                     temp[i].setText(Formatter.formatTemperature(hour.get(i).getApparentTemperature(),true) + " °");
                     cloud[i].setText(Formatter.DoubleToString(hour.get(i).getCloudCover()*100) + " %");
                     icon[i].setIcon(hour.get(i).getIconImage(context));

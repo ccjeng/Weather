@@ -132,7 +132,9 @@ public class CitiesPresenter extends BasePresenter<CitiesView>
 
     @Override
     public void onDestroy() {
-        subscriptions.unsubscribe();
+        if (subscriptions != null) {
+            subscriptions.unsubscribe();
+        }
     }
 
     @Override
