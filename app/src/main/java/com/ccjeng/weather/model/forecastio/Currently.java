@@ -4,6 +4,7 @@ package com.ccjeng.weather.model.forecastio;
 import android.content.Context;
 
 import com.ccjeng.weather.utils.IconManager;
+import com.ccjeng.weather.utils.WindDirection;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -250,6 +251,16 @@ public class Currently implements Serializable {
      */
     public Double getWindBearing() {
         return windBearing;
+    }
+
+    public String getWindDirectionString(Context context) {
+        return WindDirection.byDegree(windBearing).getLocalizedString(context);
+
+    }
+    public IconicsDrawable getWindDirectionIcon(Context context) {
+
+        WindDirection windDirection = WindDirection.byDegree(windBearing);
+        return WindDirection.getArrow(context, windDirection);
     }
 
     /**

@@ -12,20 +12,19 @@
     <string name="msg_deleted">Deleted</string>
 
     <string name="tab_current">Current</string>
-    <string name="tab_hours">Next 48 Hours</string>
-    <string name="tab_days">Next 7 Days</string>
+    <string name="tab_hours">Hourly</string>
+    <string name="tab_days">Weekly</string>
 
 
     <string name="wind">Wind</string>
     <string name="pressure">Pressure</string>
     <string name="humidity">Humidity</string>
-    <string name="sunrise">Sunrise</string>
-    <string name="sunset">Sunset</string>
+    <string name="sunrise">Sunrise: %s</string>
+    <string name="sunset">Sunset: %s</string>
     <string name="feel_like">Feel like</string>
     <string name="cloud_cover">Cloud cover</string>
     <string name="precipitation">Precipitation</string>
     <string name="last_update">Last update: %s</string>
-
 
     <string name="setting_unit_Celsuis">Celsius</string>
     <string name="setting_unit_Fahrenheit">Fahrenheit</string>

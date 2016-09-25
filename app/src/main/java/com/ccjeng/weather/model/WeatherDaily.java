@@ -13,22 +13,22 @@ public class WeatherDaily extends RealmObject {
     private Integer time;
     private String summary;
     private String icon;
-    private Double sunriseTime;
-    private Double sunsetTime;
+    private Integer sunriseTime;
+    private Integer sunsetTime;
     private Double moonPhase;
     private Double precipIntensity;
     private Double precipIntensityMax;
     private Double precipProbability;
-    private Double precipIntensityMaxTime;
+    private Integer precipIntensityMaxTime;
     private String precipType;
     private Double temperatureMin;
-    private Double temperatureMinTime;
+    private Integer temperatureMinTime;
     private Double temperatureMax;
-    private Double temperatureMaxTime;
+    private Integer temperatureMaxTime;
     private Double apparentTemperatureMin;
-    private Double apparentTemperatureMinTime;
+    private Integer apparentTemperatureMinTime;
     private Double apparentTemperatureMax;
-    private Double apparentTemperatureMaxTime;
+    private Integer apparentTemperatureMaxTime;
     private Double dewPoint;
     private Double humidity;
     private Double windSpeed;
@@ -46,11 +46,11 @@ public class WeatherDaily extends RealmObject {
         this.apparentTemperatureMax = apparentTemperatureMax;
     }
 
-    public Double getApparentTemperatureMaxTime() {
+    public Integer getApparentTemperatureMaxTime() {
         return apparentTemperatureMaxTime;
     }
 
-    public void setApparentTemperatureMaxTime(Double apparentTemperatureMaxTime) {
+    public void setApparentTemperatureMaxTime(Integer apparentTemperatureMaxTime) {
         this.apparentTemperatureMaxTime = apparentTemperatureMaxTime;
     }
 
@@ -62,11 +62,11 @@ public class WeatherDaily extends RealmObject {
         this.apparentTemperatureMin = apparentTemperatureMin;
     }
 
-    public Double getApparentTemperatureMinTime() {
+    public Integer getApparentTemperatureMinTime() {
         return apparentTemperatureMinTime;
     }
 
-    public void setApparentTemperatureMinTime(Double apparentTemperatureMinTime) {
+    public void setApparentTemperatureMinTime(Integer apparentTemperatureMinTime) {
         this.apparentTemperatureMinTime = apparentTemperatureMinTime;
     }
 
@@ -150,11 +150,11 @@ public class WeatherDaily extends RealmObject {
         this.precipIntensityMax = precipIntensityMax;
     }
 
-    public Double getPrecipIntensityMaxTime() {
+    public Integer getPrecipIntensityMaxTime() {
         return precipIntensityMaxTime;
     }
 
-    public void setPrecipIntensityMaxTime(Double precipIntensityMaxTime) {
+    public void setPrecipIntensityMaxTime(Integer precipIntensityMaxTime) {
         this.precipIntensityMaxTime = precipIntensityMaxTime;
     }
 
@@ -190,19 +190,19 @@ public class WeatherDaily extends RealmObject {
         this.summary = summary;
     }
 
-    public Double getSunriseTime() {
+    public Integer getSunriseTime() {
         return sunriseTime;
     }
 
-    public void setSunriseTime(Double sunriseTime) {
+    public void setSunriseTime(Integer sunriseTime) {
         this.sunriseTime = sunriseTime;
     }
 
-    public Double getSunsetTime() {
+    public Integer getSunsetTime() {
         return sunsetTime;
     }
 
-    public void setSunsetTime(Double sunsetTime) {
+    public void setSunsetTime(Integer sunsetTime) {
         this.sunsetTime = sunsetTime;
     }
 
@@ -214,11 +214,11 @@ public class WeatherDaily extends RealmObject {
         this.temperatureMax = temperatureMax;
     }
 
-    public Double getTemperatureMaxTime() {
+    public Integer getTemperatureMaxTime() {
         return temperatureMaxTime;
     }
 
-    public void setTemperatureMaxTime(Double temperatureMaxTime) {
+    public void setTemperatureMaxTime(Integer temperatureMaxTime) {
         this.temperatureMaxTime = temperatureMaxTime;
     }
 
@@ -230,11 +230,11 @@ public class WeatherDaily extends RealmObject {
         this.temperatureMin = temperatureMin;
     }
 
-    public Double getTemperatureMinTime() {
+    public Integer getTemperatureMinTime() {
         return temperatureMinTime;
     }
 
-    public void setTemperatureMinTime(Double temperatureMinTime) {
+    public void setTemperatureMinTime(Integer temperatureMinTime) {
         this.temperatureMinTime = temperatureMinTime;
     }
 

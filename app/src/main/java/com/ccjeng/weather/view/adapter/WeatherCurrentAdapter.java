@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
+import com.ccjeng.weather.model.forecastio.Currently;
 import com.ccjeng.weather.utils.Formatter;
 import com.mikepenz.iconics.view.IconicsImageView;
 
@@ -86,6 +87,10 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         TextView todaySummary;
         @BindView(R.id.todayTemperature)
         TextView todayTemperature;
+        @BindView(R.id.sunrisetime)
+        TextView sunriseTime;
+        @BindView(R.id.sunsettime)
+        TextView sunsetTime;
         @BindView(R.id.cardView)
         CardView cardView;
 
@@ -102,6 +107,12 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 todayTemperature.setText(Formatter.formatTemperature(city.getCityWeather().getCurrently().getTemperature(), true) + " °" );
                 todaySummary.setText(city.getCityWeather().getCurrently().getSummary());
 
+                sunriseTime.setText(context.getString(R.string.sunrise,
+                        Formatter.formatTimeToString(city.getCityWeather().getDaily().getDay().get(0).getSunriseTime(), context)));
+                sunsetTime.setText(context.getString(R.string.sunset,
+                        Formatter.formatTimeToString(city.getCityWeather().getDaily().getDay().get(0).getSunsetTime(), context)));
+
+
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
@@ -115,6 +126,8 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         TextView todayFeelLike;
         @BindView(R.id.todayWind)
         TextView todayWind;
+        @BindView(R.id.todayWindDirection)
+        IconicsImageView todayWindDirection;
         @BindView(R.id.todayPressure)
         TextView todayPressure;
         @BindView(R.id.todayHumidity)
@@ -134,19 +147,20 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         public void bind(City city) {
             try {
-                todayFeelLike.setText(Formatter.formatTemperature(city.getCityWeather().getCurrently().getApparentTemperature(), true) + " °");
 
-                todayWind.setText(city.getCityWeather().getCurrently().getWindSpeed() + " kmh "
-                        + Formatter.getWindBearingString(city.getCityWeather().getCurrently().getWindBearing()));
+                Currently currently = city.getCityWeather().getCurrently();
+                todayFeelLike.setText(Formatter.formatTemperature(currently.getApparentTemperature(), true) + " °");
 
-                todayPressure.setText(Formatter.DoubleToString(city.getCityWeather().getCurrently().getPressure()) + " hPa");
+                todayWind.setText(currently.getWindSpeed() + " kmh ");
+                todayWindDirection.setIcon(currently.getWindDirectionIcon(context));
 
-                todayHumidity.setText(Formatter.DoubleToString(city.getCityWeather().getCurrently().getHumidity()*100) + " %");
+                todayPressure.setText(Formatter.DoubleToString(currently.getPressure()) + " hPa");
 
-                todayCloudCover.setText(Formatter.DoubleToString(city.getCityWeather().getCurrently().getCloudCover()*100) + " %");
+                todayHumidity.setText(Formatter.DoubleToString(currently.getHumidity()*100) + " %");
 
-                todayPrecipitation.setText(Formatter.DoubleToString(city.getCityWeather().getCurrently().getPrecipProbability()*100) + " % ( "
-                        + Formatter.DoubleToString(city.getCityWeather().getCurrently().getPrecipIntensity()*100) + " cm)");
+                todayCloudCover.setText(Formatter.DoubleToString(currently.getCloudCover()*100) + " %");
+
+                todayPrecipitation.setText(Formatter.DoubleToString(currently.getPrecipProbability()*100) + " %");
 
             } catch (Exception e) {
                 Log.e(TAG, e.toString());

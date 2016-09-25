@@ -199,14 +199,13 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public void bind(City city) {
 
             List<Day> day = city.getCityWeather().getDaily().getDay();
-
             try {
-                dayName[0].setText("Today");
-                dayName[1].setText("Tomorrow");
+               // dayName[0].setText("Today");
+               // dayName[1].setText("Tomorrow");
                 for(int i = 0; i < day.size(); i++) {
-                    if(i > 1) {
-                        dayName[i].setText(Formatter.getWeekNameEnglish(day.get(i).getTime()));
-                    }
+                   // if(i > 1) {
+                    dayName[i].setText(Formatter.getWeekNameEnglish(day.get(i).getTime()));
+                    //}
                     tempMax[i].setText(Formatter.formatTemperature(day.get(i).getTemperatureMax(), true) + " °");
                     tempMin[i].setText(Formatter.formatTemperature(day.get(i).getTemperatureMin(), true) + " °");
                     icon[i].setIcon(day.get(i).getIconImage(context));
@@ -214,8 +213,6 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     summary[i].setText(day.get(i).getSummary());
                     rainPre[i].setText(Formatter.DoubleToString(day.get(i).getPrecipProbability()*100) + " %");
                 }
-
-
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }

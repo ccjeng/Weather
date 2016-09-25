@@ -44,7 +44,6 @@
 
                 <TextView
                     android:id="@+id/todayFeelLike"
-                    android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -78,11 +77,18 @@
 
                 <TextView
                     android:id="@+id/todayWind"
-                    android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_toLeftOf="@+id/todayWindDirection"/>
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:id="@+id/todayWindDirection"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
                     android:layout_alignParentRight="true"
-                    android:textSize="16sp"/>
+                    />
+
             </RelativeLayout>
         </LinearLayout>
 
@@ -111,7 +117,6 @@
 
                 <TextView
                     android:id="@+id/todayPressure"
-                    android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -145,7 +150,6 @@
 
                 <TextView
                     android:id="@+id/todayHumidity"
-                    android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -179,7 +183,6 @@
 
                 <TextView
                     android:id="@+id/todayCloudCover"
-                    android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

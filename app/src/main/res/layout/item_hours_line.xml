@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -11,50 +12,65 @@
                 android:paddingRight="10dp"
                 android:paddingTop="22dp">
 
-    <TextView
-        android:id="@+id/one_clock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:layout_alignParentLeft="true"
-        />
-
     <com.mikepenz.iconics.view.IconicsImageView
         android:id="@+id/icon"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/one_clock"
         android:clickable="false"
         android:scaleType="fitXY"
-        android:text=""/>
+        android:text=""
+        android:layout_alignParentLeft="true" />
 
+    <TextView
+        android:id="@+id/one_clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:layout_toRightOf="@+id/icon"
+        />
+
+
+    <com.mikepenz.iconics.view.IconicsImageView
+        android:id="@+id/icon_umbrella"
+        app:iiv_icon="wic_umbrella"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_toLeftOf="@+id/one_precipitation"/>
+    <TextView
+        android:id="@+id/one_precipitation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@+id/icon_humidity" />
+
+    <com.mikepenz.iconics.view.IconicsImageView
+        android:id="@+id/icon_humidity"
+        app:iiv_icon="wic_humidity"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:paddingLeft="10dp"
+        android:layout_toLeftOf="@+id/one_humidity"/>
     <TextView
         android:id="@+id/one_humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_toLeftOf="@+id/one_cloud"
-        android:drawablePadding="8dp"
-        android:drawableStart="@drawable/icon_humidity"/>
+        android:layout_toLeftOf="@+id/icon_temp" />
 
-    <TextView
-        android:id="@+id/one_cloud"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_toLeftOf="@+id/one_temp"
-        android:drawablePadding="8dp"
-        android:drawableStart="@drawable/icon_temp"/>
-
+    <com.mikepenz.iconics.view.IconicsImageView
+        android:id="@+id/icon_temp"
+        app:iiv_icon="wic_thermometer"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:paddingLeft="10dp"
+        android:layout_toLeftOf="@+id/one_temp"/>
     <TextView
         android:id="@+id/one_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="10dp"
-        android:drawablePadding="8dp"
-        android:drawableStart="@drawable/icon_temp"/>
+        android:layout_marginLeft="10dp"/>
 
 
 </RelativeLayout>

@@ -13,8 +13,16 @@ import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.forecastio.Hour;
 import com.ccjeng.weather.utils.Formatter;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.mikepenz.iconics.view.IconicsImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -86,6 +94,8 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         IconicsImageView icon;
         @BindView(R.id.summary)
         TextView summary;
+        @BindView(R.id.chart)
+        LineChart mChart;
 
         public SummaryViewHolder(View itemView) {
             super(itemView);
@@ -97,6 +107,46 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 icon.setIcon(city.getCityWeather().getHourly().getIconImage(context));
                 icon.setColor(city.getCityWeather().getHourly().getIconColor(context));
                 summary.setText(city.getCityWeather().getHourly().getSummary());
+
+                //chart
+                List<Hour> hours = city.getCityWeather().getHourly().getHour();
+
+                mChart.setDrawGridBackground(false);
+                mChart.setDrawBorders(false);
+
+                mChart.getAxisLeft().setEnabled(false);
+                mChart.getAxisRight().setEnabled(false);
+                mChart.getXAxis().setDrawAxisLine(false);
+                mChart.getXAxis().setDrawGridLines(false);
+                mChart.setDescription("Temperature");
+                mChart.setTouchEnabled(false);
+                mChart.setAutoScaleMinMaxEnabled(true);
+                Legend l = mChart.getLegend();
+                l.setEnabled(false);
+
+                ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+
+                //Line Temperature
+                ArrayList<Entry> maxTempValues = new ArrayList<Entry>();
+                for (int i = 0; i < hours.size(); i++) {
+                    String maxTemp = Formatter.formatTemperature(hours.get(i).getApparentTemperature(), true);
+                    maxTempValues.add(new Entry(i, Float.valueOf(maxTemp)));
+                }
+
+                LineDataSet avgTemp = new LineDataSet(maxTempValues, "");
+                avgTemp.setLineWidth(2.5f);
+                avgTemp.setDrawCircles(false);
+                //avgTemp.setCircleRadius(4f);
+                avgTemp.setValueTextSize(0f);
+                dataSets.add(avgTemp);
+
+                XAxis xAxis = mChart.getXAxis();
+                xAxis.setEnabled(false);
+
+                LineData data = new LineData(dataSets);
+                mChart.setData(data);
+                mChart.invalidate();
+
 
             } catch (Exception e) {
                 Log.e(TAG, "bind = " + e.toString());
@@ -111,7 +161,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private TextView[] time = new TextView[hour.size()];
         private TextView[] temp = new TextView[hour.size()];
         private TextView[] rain = new TextView[hour.size()];
-        private TextView[] cloud= new TextView[hour.size()];
+        private TextView[] humidity= new TextView[hour.size()];
         private IconicsImageView[] icon = new IconicsImageView[hour.size()];
 
         public HoursViewHolder(View itemView) {
@@ -120,9 +170,9 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             for (int i = 0; i < hour.size(); i++) {
                 View view = View.inflate(context, R.layout.item_hours_line, null);
                 time[i] = (TextView) view.findViewById(R.id.one_clock);
-                rain[i] = (TextView) view.findViewById(R.id.one_humidity);
+                rain[i] = (TextView) view.findViewById(R.id.one_precipitation);
                 temp[i] = (TextView) view.findViewById(R.id.one_temp);
-                cloud[i]= (TextView) view.findViewById(R.id.one_cloud);
+                humidity[i]= (TextView) view.findViewById(R.id.one_humidity);
                 icon[i] = (IconicsImageView) view.findViewById(R.id.icon);
                 hourLinear.addView(view);
             }
@@ -136,7 +186,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     time[i].setText(Formatter.formatTimeToString(hour.get(i).getTime(), context));
                     rain[i].setText(Formatter.DoubleToString(hour.get(i).getPrecipProbability()*100) + " %");
                     temp[i].setText(Formatter.formatTemperature(hour.get(i).getApparentTemperature(),true) + " °");
-                    cloud[i].setText(Formatter.DoubleToString(hour.get(i).getCloudCover()*100) + " %");
+                    humidity[i].setText(Formatter.DoubleToString(hour.get(i).getHumidity()*100) + " %");
                     icon[i].setIcon(hour.get(i).getIconImage(context));
                     icon[i].setColor(hour.get(i).getIconColor(context));
                 }

@@ -5,7 +5,7 @@ package com.ccjeng.weather.utils;
  */
 public class Constant {
 
-    public static final String FORECASTIO_ENDPOINT = "https://api.forecast.io/";
+    public static final String FORECASTIO_ENDPOINT = "https://api.darksky.net/";
     public static final String FORECASTIO_APIKEY = "3021a64fa44fe78d95b05991be3fecc4";
 
 }

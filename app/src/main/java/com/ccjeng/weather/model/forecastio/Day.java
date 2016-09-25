@@ -23,10 +23,10 @@ public class Day implements Serializable {
     private String icon;
     @SerializedName("sunriseTime")
     @Expose
-    private Double sunriseTime;
+    private Integer sunriseTime;
     @SerializedName("sunsetTime")
     @Expose
-    private Double sunsetTime;
+    private Integer sunsetTime;
     @SerializedName("moonPhase")
     @Expose
     private Double moonPhase;
@@ -44,25 +44,25 @@ public class Day implements Serializable {
     private Double temperatureMin;
     @SerializedName("temperatureMinTime")
     @Expose
-    private Double temperatureMinTime;
+    private Integer temperatureMinTime;
     @SerializedName("temperatureMax")
     @Expose
     private Double temperatureMax;
     @SerializedName("temperatureMaxTime")
     @Expose
-    private Double temperatureMaxTime;
+    private Integer temperatureMaxTime;
     @SerializedName("apparentTemperatureMin")
     @Expose
     private Double apparentTemperatureMin;
     @SerializedName("apparentTemperatureMinTime")
     @Expose
-    private Double apparentTemperatureMinTime;
+    private Integer apparentTemperatureMinTime;
     @SerializedName("apparentTemperatureMax")
     @Expose
     private Double apparentTemperatureMax;
     @SerializedName("apparentTemperatureMaxTime")
     @Expose
-    private Double apparentTemperatureMaxTime;
+    private Integer apparentTemperatureMaxTime;
     @SerializedName("dewPoint")
     @Expose
     private Double dewPoint;
@@ -86,7 +86,7 @@ public class Day implements Serializable {
     private Double ozone;
     @SerializedName("precipIntensityMaxTime")
     @Expose
-    private Double precipIntensityMaxTime;
+    private Integer precipIntensityMaxTime;
     @SerializedName("precipType")
     @Expose
     private String precipType;
@@ -158,7 +158,7 @@ public class Day implements Serializable {
      * @return
      *     The sunriseTime
      */
-    public Double getSunriseTime() {
+    public Integer getSunriseTime() {
         return sunriseTime;
     }
 
@@ -167,7 +167,7 @@ public class Day implements Serializable {
      * @param sunriseTime
      *     The sunriseTime
      */
-    public void setSunriseTime(Double sunriseTime) {
+    public void setSunriseTime(Integer sunriseTime) {
         this.sunriseTime = sunriseTime;
     }
 
@@ -176,7 +176,7 @@ public class Day implements Serializable {
      * @return
      *     The sunsetTime
      */
-    public Double getSunsetTime() {
+    public Integer getSunsetTime() {
         return sunsetTime;
     }
 
@@ -185,7 +185,7 @@ public class Day implements Serializable {
      * @param sunsetTime
      *     The sunsetTime
      */
-    public void setSunsetTime(Double sunsetTime) {
+    public void setSunsetTime(Integer sunsetTime) {
         this.sunsetTime = sunsetTime;
     }
 
@@ -284,7 +284,7 @@ public class Day implements Serializable {
      * @return
      *     The temperatureMinTime
      */
-    public Double getTemperatureMinTime() {
+    public Integer getTemperatureMinTime() {
         return temperatureMinTime;
     }
 
@@ -293,7 +293,7 @@ public class Day implements Serializable {
      * @param temperatureMinTime
      *     The temperatureMinTime
      */
-    public void setTemperatureMinTime(Double temperatureMinTime) {
+    public void setTemperatureMinTime(Integer temperatureMinTime) {
         this.temperatureMinTime = temperatureMinTime;
     }
 
@@ -320,7 +320,7 @@ public class Day implements Serializable {
      * @return
      *     The temperatureMaxTime
      */
-    public Double getTemperatureMaxTime() {
+    public Integer getTemperatureMaxTime() {
         return temperatureMaxTime;
     }
 
@@ -329,7 +329,7 @@ public class Day implements Serializable {
      * @param temperatureMaxTime
      *     The temperatureMaxTime
      */
-    public void setTemperatureMaxTime(Double temperatureMaxTime) {
+    public void setTemperatureMaxTime(Integer temperatureMaxTime) {
         this.temperatureMaxTime = temperatureMaxTime;
     }
 
@@ -356,7 +356,7 @@ public class Day implements Serializable {
      * @return
      *     The apparentTemperatureMinTime
      */
-    public Double getApparentTemperatureMinTime() {
+    public Integer getApparentTemperatureMinTime() {
         return apparentTemperatureMinTime;
     }
 
@@ -365,7 +365,7 @@ public class Day implements Serializable {
      * @param apparentTemperatureMinTime
      *     The apparentTemperatureMinTime
      */
-    public void setApparentTemperatureMinTime(Double apparentTemperatureMinTime) {
+    public void setApparentTemperatureMinTime(Integer apparentTemperatureMinTime) {
         this.apparentTemperatureMinTime = apparentTemperatureMinTime;
     }
 
@@ -392,7 +392,7 @@ public class Day implements Serializable {
      * @return
      *     The apparentTemperatureMaxTime
      */
-    public Double getApparentTemperatureMaxTime() {
+    public Integer getApparentTemperatureMaxTime() {
         return apparentTemperatureMaxTime;
     }
 
@@ -401,7 +401,7 @@ public class Day implements Serializable {
      * @param apparentTemperatureMaxTime
      *     The apparentTemperatureMaxTime
      */
-    public void setApparentTemperatureMaxTime(Double apparentTemperatureMaxTime) {
+    public void setApparentTemperatureMaxTime(Integer apparentTemperatureMaxTime) {
         this.apparentTemperatureMaxTime = apparentTemperatureMaxTime;
     }
 
@@ -536,7 +536,7 @@ public class Day implements Serializable {
      * @return
      *     The precipIntensityMaxTime
      */
-    public Double getPrecipIntensityMaxTime() {
+    public Integer getPrecipIntensityMaxTime() {
         return precipIntensityMaxTime;
     }
 
@@ -545,7 +545,7 @@ public class Day implements Serializable {
      * @param precipIntensityMaxTime
      *     The precipIntensityMaxTime
      */
-    public void setPrecipIntensityMaxTime(Double precipIntensityMaxTime) {
+    public void setPrecipIntensityMaxTime(Integer precipIntensityMaxTime) {
         this.precipIntensityMaxTime = precipIntensityMaxTime;
     }
 
