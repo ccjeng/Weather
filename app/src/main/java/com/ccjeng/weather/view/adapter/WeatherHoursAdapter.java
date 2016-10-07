@@ -1,6 +1,7 @@
 package com.ccjeng.weather.view.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,15 +15,8 @@ import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.forecastio.Hour;
 import com.ccjeng.weather.utils.Formatter;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.mikepenz.iconics.view.IconicsImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -90,6 +84,8 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     class SummaryViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.cardView)
+        CardView cardView;
         @BindView(R.id.icon)
         IconicsImageView icon;
         @BindView(R.id.summary)
@@ -104,11 +100,16 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public void bind(City city) {
             try {
+                cardView.getBackground().setAlpha(100);
+
                 icon.setIcon(city.getCityWeather().getHourly().getIconImage(context));
                 icon.setColor(city.getCityWeather().getHourly().getIconColor(context));
                 summary.setText(city.getCityWeather().getHourly().getSummary());
 
+                mChart.setVisibility(View.GONE);
+
                 //chart
+                /*
                 List<Hour> hours = city.getCityWeather().getHourly().getHour();
 
                 mChart.setDrawGridBackground(false);
@@ -147,7 +148,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 mChart.setData(data);
                 mChart.invalidate();
 
-
+*/
             } catch (Exception e) {
                 Log.e(TAG, "bind = " + e.toString());
             }
@@ -156,23 +157,25 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     class HoursViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.cardView)
+        CardView cardView;
         private List<Hour> hour = city.getCityWeather().getHourly().getHour();
         private LinearLayout hourLinear;
         private TextView[] time = new TextView[hour.size()];
         private TextView[] temp = new TextView[hour.size()];
         private TextView[] rain = new TextView[hour.size()];
-        private TextView[] humidity= new TextView[hour.size()];
         private IconicsImageView[] icon = new IconicsImageView[hour.size()];
 
         public HoursViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
+
             hourLinear = (LinearLayout) itemView.findViewById(R.id.linear);
             for (int i = 0; i < hour.size(); i++) {
                 View view = View.inflate(context, R.layout.item_hours_line, null);
                 time[i] = (TextView) view.findViewById(R.id.one_clock);
                 rain[i] = (TextView) view.findViewById(R.id.one_precipitation);
                 temp[i] = (TextView) view.findViewById(R.id.one_temp);
-                humidity[i]= (TextView) view.findViewById(R.id.one_humidity);
                 icon[i] = (IconicsImageView) view.findViewById(R.id.icon);
                 hourLinear.addView(view);
             }
@@ -180,13 +183,15 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         public void bind(City city) {
+
+            cardView.getBackground().setAlpha(100);
+
             try {
                 List<Hour> hour = city.getCityWeather().getHourly().getHour();
                 for(int i = 0; i < hour.size(); i++) {
                     time[i].setText(Formatter.formatTimeToString(hour.get(i).getTime(), context));
                     rain[i].setText(Formatter.DoubleToString(hour.get(i).getPrecipProbability()*100) + " %");
                     temp[i].setText(Formatter.formatTemperature(hour.get(i).getApparentTemperature(),true) + " °");
-                    humidity[i].setText(Formatter.DoubleToString(hour.get(i).getHumidity()*100) + " %");
                     icon[i].setIcon(hour.get(i).getIconImage(context));
                     icon[i].setColor(hour.get(i).getIconColor(context));
                 }

@@ -3,6 +3,12 @@ package com.ccjeng.weather.utils;
 import android.content.Context;
 import android.text.format.DateFormat;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,10 +32,25 @@ public class Formatter {
 
 
     public static String formatTimeToString(Integer value, Context context) {
-        //DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(context);
-        //return timeFormat.format(value);
         return DateFormat.getTimeFormat(context).format(new Date(value * 1000L));
+    }
 
+    public static String convertTime(Integer time, String timeZone){
+        DateTimeZone zone = DateTimeZone.forID(timeZone);
+        DateTime date = new DateTime(time * 1000L, zone);
+        DateTimeFormatter format = DateTimeFormat.forPattern("HH:mm");
+        return date.toString(format);
+    }
+
+    public static String getLocateTime(String timeZone) {
+        DateTimeZone zone = DateTimeZone.forID(timeZone);
+
+        DateTime nowLocal = new DateTime();
+        LocalDateTime nowUTC = nowLocal.withZone(DateTimeZone.UTC).toLocalDateTime();
+
+        DateTime date = new DateTime(nowUTC, zone);
+        DateTimeFormatter format = DateTimeFormat.forPattern("HH:mm");
+        return date.toString(format);
     }
 
     public static String formatTimeWithDayIfNotToday(Context context, long timeInMillis) {

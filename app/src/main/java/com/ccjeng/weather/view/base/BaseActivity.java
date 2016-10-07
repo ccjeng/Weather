@@ -1,32 +1,26 @@
 package com.ccjeng.weather.view.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.ccjeng.weather.presenter.base.BasePresenter;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by andycheng on 2016/9/5.
  */
-public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity {
-        protected T mPresenter;
+public abstract class BaseActivity extends AppCompatActivity {
 
-
-    @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = createPresenter();
-        mPresenter.attachView((V) this);
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.detachView();
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    protected abstract T createPresenter();
 
 }

@@ -1,11 +1,15 @@
 package com.ccjeng.weather.view.activity;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
@@ -29,6 +33,9 @@ public class SearchFragment extends BaseFragment<SearchView, SearchPresenter> im
 
     @BindView(R.id.autocomplete)
     AutoCompleteTextView autocompleteView;
+
+    @BindView(R.id.search_view)
+    CardView searchView;
 
     private GoogleApiClientProvider googleApiClientProvider;
 
@@ -94,5 +101,24 @@ public class SearchFragment extends BaseFragment<SearchView, SearchPresenter> im
         Log.d(TAG, "onCitySuggestionSelected = " + city.getName());
         ((CitiesFragment) getFragmentManager().findFragmentById(R.id.fragment)).presenter.addNewCity(city);
 
+    }
+
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (searchView.isAttachedToWindow()) {
+                //float radius = Math.max(searchView.getWidth(), searchView.getHeight()) * 2.0f;
+                DisplayMetrics metrics = new DisplayMetrics();
+                getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                ViewAnimationUtils.createCircularReveal(searchView, 0, 0, 5, metrics.widthPixels).setDuration(500).start();
+                InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                mgr.showSoftInput(autocompleteView, InputMethodManager.SHOW_IMPLICIT);
+            }
+        } else {
+            InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            mgr.showSoftInput(autocompleteView, InputMethodManager.SHOW_IMPLICIT);
+        }
     }
 }

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                                     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools=" http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix"
                                     android:id="@+id/cardView"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -39,7 +41,6 @@
             android:orientation="horizontal">
 
             <TextView
-
                 android:id="@+id/todayTemperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,12 +56,12 @@
             android:layout_marginBottom="6dp"
             android:layout_below="@+id/linear_temp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <TextView
                 android:id="@+id/todaySummary"
                 android:layout_marginRight="12dp"
-                android:textColor="#BDBDBD"
                 android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,7 +95,6 @@
                 android:layout_height="wrap_content"
                 />
         </LinearLayout>
-
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

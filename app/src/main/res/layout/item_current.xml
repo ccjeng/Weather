@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                                    android:id="@+id/cardView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="@dimen/cardview_margin"
-                                    android:clickable="true"
-                                    android:foreground="?android:attr/selectableItemBackground"
-                                    card_view:cardCornerRadius="3dp"
-                                    card_view:cardElevation="2dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/cardview_margin"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardCornerRadius="3dp"
+    card_view:cardElevation="2dp">
 
     <LinearLayout
-        android:paddingLeft="32dp"
-        android:paddingBottom="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingLeft="32dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,200 +27,206 @@
             <com.mikepenz.iconics.view.IconicsImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                app:iiv_icon="wic_thermometer"/>
+                app:iiv_icon="wic_thermometer"
+                app:iiv_color="@color/textColor"/>
 
             <RelativeLayout
-                android:layout_marginLeft="40dp"
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/feel_like"
                     android:layout_alignParentLeft="true"
-                    android:textSize="16sp"/>
+                    android:text="@string/feel_like"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/todayFeelLike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </RelativeLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
 
             <com.mikepenz.iconics.view.IconicsImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                app:iiv_icon="wic_strong_wind"/>
+                app:iiv_icon="wic_strong_wind"
+                app:iiv_color="@color/textColor"/>
 
             <RelativeLayout
-                android:layout_marginLeft="40dp"
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/wind"
                     android:layout_alignParentLeft="true"
-                    android:textSize="16sp"/>
+                    android:text="@string/wind"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/todayWind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:layout_toLeftOf="@+id/todayWindDirection"/>
+                    android:layout_toLeftOf="@+id/todayWindDirection"
+                    android:textSize="16sp" />
 
                 <com.mikepenz.iconics.view.IconicsImageView
                     android:id="@+id/todayWindDirection"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_alignParentRight="true"
-                    />
+                    app:iiv_color="@color/textColor"
+                    android:layout_alignParentRight="true" />
 
             </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
 
             <com.mikepenz.iconics.view.IconicsImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                app:iiv_icon="wic_barometer"/>
+                app:iiv_icon="wic_barometer"
+                app:iiv_color="@color/textColor"/>
 
             <RelativeLayout
-                android:layout_marginLeft="40dp"
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/pressure"
                     android:layout_alignParentLeft="true"
-                    android:textSize="16sp"/>
+                    android:text="@string/pressure"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/todayPressure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </RelativeLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
 
             <com.mikepenz.iconics.view.IconicsImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                app:iiv_icon="wic_humidity"/>
+                app:iiv_icon="wic_humidity"
+                app:iiv_color="@color/textColor"/>
 
             <RelativeLayout
-                android:layout_marginLeft="40dp"
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/humidity"
                     android:layout_alignParentLeft="true"
-                    android:textSize="16sp"/>
+                    android:text="@string/humidity"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/todayHumidity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </RelativeLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
 
             <com.mikepenz.iconics.view.IconicsImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                app:iiv_icon="wic_cloudy"/>
+                app:iiv_icon="wic_cloudy"
+                app:iiv_color="@color/textColor"/>
 
             <RelativeLayout
-                android:layout_marginLeft="40dp"
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cloud_cover"
                     android:layout_alignParentLeft="true"
-                    android:textSize="16sp"/>
+                    android:text="@string/cloud_cover"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/todayCloudCover"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </RelativeLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
 
             <com.mikepenz.iconics.view.IconicsImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                app:iiv_icon="wic_umbrella"/>
+                app:iiv_icon="wic_umbrella"
+                app:iiv_color="@color/textColor"/>
 
             <RelativeLayout
-                android:layout_marginLeft="40dp"
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/precipitation"
                     android:layout_alignParentLeft="true"
-                    android:textSize="16sp"/>
+                    android:text="@string/precipitation"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/todayPrecipitation"
-                    android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:textSize="16sp"/>
+                    android:layout_marginTop="2dp"
+                    android:textSize="16sp" />
             </RelativeLayout>
 
         </LinearLayout>

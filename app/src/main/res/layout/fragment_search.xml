@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:hint="@string/search_city_hint"
+            android:textColor="#000000"
             android:singleLine="true" />
     </android.support.v7.widget.CardView>
 

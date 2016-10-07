@@ -1,6 +1,7 @@
 package com.ccjeng.weather.view.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -91,6 +92,8 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     class SummaryViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.cardView)
+        CardView cardView;
         @BindView(R.id.icon)
         IconicsImageView icon;
         @BindView(R.id.summary)
@@ -105,6 +108,8 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public void bind(City city) {
             try {
+                cardView.getBackground().setAlpha(100);
+
                 icon.setIcon(city.getCityWeather().getDaily().getIconImage(context));
                 icon.setColor(city.getCityWeather().getDaily().getIconColor(context));
                 summary.setText(city.getCityWeather().getDaily().getSummary());
@@ -138,6 +143,7 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 max.setLineWidth(2.5f);
                 max.setCircleRadius(4f);
                 max.setValueTextSize(11f);
+                max.setValueTextColor(R.color.textColor);
                 dataSets.add(max);
 
                 //Line Min Temperature
@@ -151,6 +157,7 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 min.setLineWidth(2.5f);
                 min.setCircleRadius(4f);
                 min.setValueTextSize(11f);
+                min.setValueTextColor(R.color.textColor);
                 dataSets.add(min);
 
                 XAxis xAxis = mChart.getXAxis();
@@ -171,6 +178,8 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     class DaysViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.cardView)
+        CardView cardView;
         private List<Day> day = city.getCityWeather().getDaily().getDay();
         private LinearLayout dayLinear;
         private TextView[] dayName = new TextView[day.size()];
@@ -182,6 +191,8 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public DaysViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
+
             dayLinear = (LinearLayout) itemView.findViewById(R.id.linear);
             for (int i = 0; i < day.size(); i++) {
                 View view = View.inflate(context, R.layout.item_days_line, null);
@@ -197,6 +208,8 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         public void bind(City city) {
+
+            cardView.getBackground().setAlpha(100);
 
             List<Day> day = city.getCityWeather().getDaily().getDay();
             try {

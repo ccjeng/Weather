@@ -2,6 +2,7 @@ package com.ccjeng.weather.view.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,9 @@ import com.ccjeng.weather.utils.Formatter;
 import com.mikepenz.iconics.view.IconicsImageView;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by andycheng on 2016/9/9.
@@ -80,17 +84,15 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.city_view, parent, false);
-        /*
-        if (compact) {
-            view = inflater.inflate(R.layout.city_view_compact, parent, false);
-        } else {
-            view = inflater.inflate(R.layout.city_view, parent, false);
-        }*/
+
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+
+        holder.cardView.getBackground().setAlpha(100);
+
         City city = cities.get(position);
 
         holder.cityName.setText(city.getName());
@@ -138,23 +140,30 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.cardView)
+        CardView cardView;
+        @BindView(R.id.city_name)
         TextView cityName;
+        @BindView(R.id.temp)
         TextView temp;
-        LinearLayout view;
+        @BindView(R.id.progress_bar)
         ProgressBar progressBar;
+        @BindView(R.id.icon)
         IconicsImageView icon;
+
+        LinearLayout view;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
+
             this.view = (LinearLayout) itemView.findViewById(R.id.container);
+            /*
             cityName = (TextView) itemView.findViewById(R.id.city_name);
             temp = (TextView) itemView.findViewById(R.id.temp);
             progressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
-            icon = (IconicsImageView) itemView.findViewById(R.id.icon);
+            icon = (IconicsImageView) itemView.findViewById(R.id.icon);*/
         }
     }
 
-    public void setCompactView(boolean compact) {
-        this.compact = compact;
-    }
 }

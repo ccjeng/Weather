@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:text="22°"
                     android:drawablePadding="8dp"
-                    android:drawableStart="@drawable/icon_humidity"
+                    android:drawableStart="@drawable/ic_umbrella"
                     />
 
                 <TextView
@@ -55,7 +55,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="22°"
                     android:drawablePadding="8dp"
-                    android:drawableStart="@drawable/icon_temp"
+                    android:drawableStart="@drawable/ic_thermometer"
                     />
 
                 <TextView

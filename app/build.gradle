@@ -4,11 +4,11 @@ apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion '24.0.3'
 
     defaultConfig {
         applicationId "com.ccjeng.weather"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -29,8 +29,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
     compile 'com.android.support:gridlayout-v7:24.2.1'
-    compile 'com.google.android.gms:play-services-location:9.6.0'
-    compile 'com.google.android.gms:play-services-places:9.6.0'
+    compile 'com.google.android.gms:play-services-location:9.6.1'
+    compile 'com.google.android.gms:play-services-places:9.6.1'
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'io.reactivex:rxjava:1.1.10'
@@ -39,10 +39,10 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-
-    compile "com.mikepenz:iconics-core:2.8.1@aar"
+    compile 'com.mikepenz:iconics-core:2.8.1@aar'
     compile 'com.mikepenz:weather-icons-typeface:2.0.10.2@aar'
     //compile 'com.github.PhilJay:MPAndroidChart:v2.2.5'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.0-beta1'
-
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+    compile 'joda-time:joda-time:2.9.4'
 }
