@@ -2,10 +2,10 @@ package com.ccjeng.weather.utils;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -42,15 +42,17 @@ public class Formatter {
         return date.toString(format);
     }
 
-    public static String getLocateTime(String timeZone) {
+    public static String getCurrentTimeByTimeZone(String timeZone) {
         DateTimeZone zone = DateTimeZone.forID(timeZone);
 
         DateTime nowLocal = new DateTime();
-        LocalDateTime nowUTC = nowLocal.withZone(DateTimeZone.UTC).toLocalDateTime();
+        DateTime nowUTC = nowLocal.withZone(DateTimeZone.UTC).toDateTime();
+        DateTime nowPlace = nowUTC.withZone(zone).toDateTime();
+        Log.d("getLocateTime", nowPlace.toString());
 
-        DateTime date = new DateTime(nowUTC, zone);
+        //DateTime date = new DateTime(nowUTC, zone);
         DateTimeFormatter format = DateTimeFormat.forPattern("HH:mm");
-        return date.toString(format);
+        return nowPlace.toString(format);
     }
 
     public static String formatTimeWithDayIfNotToday(Context context, long timeInMillis) {
@@ -67,7 +69,6 @@ public class Formatter {
             return android.text.format.DateFormat.getDateFormat(context).format(lastCheckedDate) + " " + timeFormat;
         }
     }
-
 
     public static String DoubleToString(Double value) {
         String s = String.valueOf(new DecimalFormat("0.0").format(value));

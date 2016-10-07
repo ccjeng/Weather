@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="textColor">#FFFFFF</color>
+    <color name="autocompleteTextColor">#000000</color>
 
     <color name="rain">#81D4FA</color>
     <color name="clear_day">#FFCA28</color>

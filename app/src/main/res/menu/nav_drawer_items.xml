@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/navSetting"
+            android:title="@string/action_settings"
+            android:icon="@drawable/ic_settings_black_24px"/>
+        <item
+            android:id="@+id/navAbout"
+            android:title="@string/action_about"
+            android:icon="@drawable/ic_exclamation_sign"/>
+    </group>
+</menu>

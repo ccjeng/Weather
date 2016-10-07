@@ -18,6 +18,7 @@ package com.ccjeng.weather.view.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.text.style.CharacterStyle;
 import android.text.style.StyleSpan;
 import android.view.View;
@@ -27,6 +28,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.ccjeng.weather.R;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Status;
@@ -82,6 +84,8 @@ public class PlaceAutocompleteAdapter
     public PlaceAutocompleteAdapter(Context context, GoogleApiClient googleApiClient,
                                     LatLngBounds bounds, AutocompleteFilter filter) {
         super(context, android.R.layout.simple_expandable_list_item_2, android.R.id.text1);
+        //super(context, R.layout.autocomplete_list_item, R.id.autocompleteText);
+
         mGoogleApiClient = googleApiClient;
         mBounds = bounds;
         mPlaceFilter = filter;
@@ -123,7 +127,9 @@ public class PlaceAutocompleteAdapter
         TextView textView1 = (TextView) row.findViewById(android.R.id.text1);
         TextView textView2 = (TextView) row.findViewById(android.R.id.text2);
         textView1.setText(item.getPrimaryText(STYLE_BOLD));
+        textView1.setTextColor(ContextCompat.getColor(getContext(), R.color.autocompleteTextColor));
         textView2.setText(item.getSecondaryText(STYLE_BOLD));
+        textView2.setTextColor(ContextCompat.getColor(getContext(), R.color.autocompleteTextColor));
 
         return row;
     }

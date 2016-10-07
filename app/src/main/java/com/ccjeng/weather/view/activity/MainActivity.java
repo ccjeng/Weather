@@ -1,11 +1,18 @@
 package com.ccjeng.weather.view.activity;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.view.GoogleApiClientProvider;
@@ -14,6 +21,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Places;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity
@@ -22,6 +30,14 @@ public class MainActivity extends BaseActivity
         , GoogleApiClientProvider {
 
     private final String TAG = this.getClass().getSimpleName();
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.drawerlayout)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.navigation)
+    NavigationView navigation;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
     private GoogleApiClient googleApiClient;
 
     @Override
@@ -30,8 +46,8 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        navDrawer();
 
         if (savedInstanceState == null) {
             FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
@@ -40,7 +56,6 @@ public class MainActivity extends BaseActivity
         }
 
         buildGoogleApiClient();
-
     }
 
     @Override
@@ -90,5 +105,64 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        actionBarDrawerToggle.onConfigurationChanged(newConfig);
+    }
 
+    private void navDrawer() {
+        navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                //Checking if the item is in checked state or not, if not make it in checked state
+                if(menuItem.isChecked())
+                    menuItem.setChecked(false);
+                else
+                    menuItem.setChecked(true);
+
+                //Closing drawer on item click
+                drawerLayout.closeDrawers();
+
+                switch (menuItem.getItemId()) {
+                   case R.id.navSetting:
+                        startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                        break;
+                    case R.id.navAbout:
+                    /*    new LibsBuilder()
+                                //provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)
+                                .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                                .withAboutIconShown(true)
+                                .withAboutVersionShown(true)
+                                .withAboutAppName(getString(R.string.app_name))
+                                .withActivityTitle(getString(R.string.action_about))
+                                .start(MainActivity.this);*/
+                        break;
+
+                }
+                return false;
+            }
+        });
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar
+                ,R.string.app_name, R.string.app_name){
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+        };
+
+        //Setting the actionbarToggle to drawer layout
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
+        //calling sync state is necessay or else your hamburger icon wont show up
+        actionBarDrawerToggle.syncState();
+    }
 }

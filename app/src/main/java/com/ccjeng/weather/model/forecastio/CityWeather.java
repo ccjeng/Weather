@@ -19,7 +19,7 @@ public class CityWeather implements Serializable {
     private String timezone;
     @SerializedName("offset")
     @Expose
-    private Integer offset;
+    private Double offset;
     @SerializedName("currently")
     @Expose
     private Currently currently;
@@ -103,7 +103,7 @@ public class CityWeather implements Serializable {
      * @return
      *     The offset
      */
-    public Integer getOffset() {
+    public Double getOffset() {
         return offset;
     }
 
@@ -112,7 +112,7 @@ public class CityWeather implements Serializable {
      * @param offset
      *     The offset
      */
-    public void setOffset(Integer offset) {
+    public void setOffset(Double offset) {
         this.offset = offset;
     }
 

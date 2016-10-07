@@ -14,6 +14,7 @@ import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.forecastio.Day;
 import com.ccjeng.weather.utils.Formatter;
+import com.ccjeng.weather.utils.Settings;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -40,6 +41,7 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private static final int SUMMARY = 0;
     private static final int DAYS = 1;
+    private boolean celsius = true;
 
     public WeatherDaysAdapter(City city) {
         this.city = city;
@@ -59,6 +61,8 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
+        celsius = Settings.isCelsiusUnit(context);
+
         switch (viewType) {
             case SUMMARY:
                 return new SummaryViewHolder(
@@ -135,7 +139,7 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 //Line Max Temperature
                 ArrayList<Entry> maxTempValues = new ArrayList<Entry>();
                 for (int i = 0; i < day.size(); i++) {
-                    String maxTemp = Formatter.formatTemperature(day.get(i).getTemperatureMax(), true);
+                    String maxTemp = Formatter.formatTemperature(day.get(i).getTemperatureMax(), celsius);
                     maxTempValues.add(new Entry(i, Float.valueOf(maxTemp)));
                 }
 
@@ -149,7 +153,7 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 //Line Min Temperature
                 ArrayList<Entry> minTempValues = new ArrayList<Entry>();
                 for (int i = 0; i < day.size(); i++) {
-                    String minTemp = Formatter.formatTemperature(day.get(i).getTemperatureMin(), true);
+                    String minTemp = Formatter.formatTemperature(day.get(i).getTemperatureMin(), celsius);
                     minTempValues.add(new Entry(i, Float.valueOf(minTemp)));
                 }
 
@@ -219,8 +223,8 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                    // if(i > 1) {
                     dayName[i].setText(Formatter.getWeekNameEnglish(day.get(i).getTime()));
                     //}
-                    tempMax[i].setText(Formatter.formatTemperature(day.get(i).getTemperatureMax(), true) + " °");
-                    tempMin[i].setText(Formatter.formatTemperature(day.get(i).getTemperatureMin(), true) + " °");
+                    tempMax[i].setText(Formatter.formatTemperature(day.get(i).getTemperatureMax(), celsius) + " °");
+                    tempMin[i].setText(Formatter.formatTemperature(day.get(i).getTemperatureMin(), celsius) + " °");
                     icon[i].setIcon(day.get(i).getIconImage(context));
                     icon[i].setColor(day.get(i).getIconColor(context));
                     summary[i].setText(day.get(i).getSummary());

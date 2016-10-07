@@ -14,6 +14,7 @@ import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.forecastio.Hour;
 import com.ccjeng.weather.utils.Formatter;
+import com.ccjeng.weather.utils.Settings;
 import com.github.mikephil.charting.charts.LineChart;
 import com.mikepenz.iconics.view.IconicsImageView;
 
@@ -32,6 +33,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private static final int SUMMARY = 0;
     private static final int HOURS = 1;
+    private boolean celsius = true;
 
     public WeatherHoursAdapter(City city) {
         this.city = city;
@@ -51,6 +53,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
+        celsius = Settings.isCelsiusUnit(context);
         switch (viewType) {
             case SUMMARY:
                 return new SummaryViewHolder(
@@ -191,7 +194,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 for(int i = 0; i < hour.size(); i++) {
                     time[i].setText(Formatter.formatTimeToString(hour.get(i).getTime(), context));
                     rain[i].setText(Formatter.DoubleToString(hour.get(i).getPrecipProbability()*100) + " %");
-                    temp[i].setText(Formatter.formatTemperature(hour.get(i).getApparentTemperature(),true) + " °");
+                    temp[i].setText(Formatter.formatTemperature(hour.get(i).getApparentTemperature(),celsius) + " °");
                     icon[i].setIcon(hour.get(i).getIconImage(context));
                     icon[i].setColor(hour.get(i).getIconColor(context));
                 }

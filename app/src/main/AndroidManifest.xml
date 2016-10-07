@@ -24,8 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.WeatherActivity" >
-        </activity>
+        <activity android:name=".view.activity.WeatherActivity" />
+        <activity android:name=".view.activity.SettingsActivity"
+            android:label="@string/action_settings"/>
+
     </application>
 
 </manifest>

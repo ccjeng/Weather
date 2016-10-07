@@ -12,7 +12,7 @@ public class WeatherCurrently extends RealmObject {
     private String id;
     private String cityId;
     private String timezone;
-    private Integer offset;
+    private Double offset;
     private long fetchtime;
     private Integer time;
     private String summary;
@@ -130,11 +130,11 @@ public class WeatherCurrently extends RealmObject {
         this.id = id;
     }
 
-    public Integer getOffset() {
+    public Double getOffset() {
         return offset;
     }
 
-    public void setOffset(Integer offset) {
+    public void setOffset(Double offset) {
         this.offset = offset;
     }
 

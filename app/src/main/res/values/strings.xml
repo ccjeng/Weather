@@ -14,21 +14,31 @@
     <string name="tab_current">Current</string>
     <string name="tab_hours">Hourly</string>
     <string name="tab_days">Weekly</string>
-
+    <!-- Menu -->
+    <string name="action_settings">Setting</string>
+    <string name="action_about">About</string>
+    <!-- Settings -->
+    <string name="pref_description_units">Temperature units</string>
+    <string name="Units">Units</string>
+    <string-array name="pref_list_units">
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+    </string-array>
+    <string-array name="pref_list_units_values">
+        <item>celsius</item>
+        <item>fahrenheit</item>
+    </string-array>
 
     <string name="wind">Wind</string>
     <string name="pressure">Pressure</string>
     <string name="humidity">Humidity</string>
     <string name="sunrise">Sunrise: %s</string>
     <string name="sunset">Sunset: %s</string>
+    <string name="current">Current: %s</string>
     <string name="feel_like">Feel like</string>
     <string name="cloud_cover">Cloud cover</string>
     <string name="precipitation">Precipitation</string>
     <string name="last_update">Last update: %s</string>
-
-    <string name="setting_unit_Celsuis">Celsius</string>
-    <string name="setting_unit_Fahrenheit">Fahrenheit</string>
-    <string name="setting_unit_Kelvin">Kelvin</string>
 
     <string name="setting_unit_mm">Millimeters (mm)</string>
     <string name="setting_unit_in">Inches (in)</string>

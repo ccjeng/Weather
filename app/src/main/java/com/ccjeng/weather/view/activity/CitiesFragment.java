@@ -55,6 +55,22 @@ public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> im
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cities, container, false);
         ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        googleApiClientProvider = (GoogleApiClientProvider) context;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initialize();
+    }
+
+    private void initialize() {
 
         adapter = new CitiesAdapter(getActivity());
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -81,23 +97,6 @@ public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> im
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(citiesRecyclerView);
 
-
-        return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        googleApiClientProvider = (GoogleApiClientProvider) context;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initialize();
-    }
-
-    private void initialize() {
         presenter.setAdapter(adapter);
         presenter.setGoogleApiClient(googleApiClientProvider.getApiClient());
         addCityFab.setOnClickListener(new View.OnClickListener() {

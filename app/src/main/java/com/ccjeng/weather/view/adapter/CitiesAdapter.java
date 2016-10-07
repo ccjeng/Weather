@@ -1,7 +1,6 @@
 package com.ccjeng.weather.view.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.utils.Formatter;
+import com.ccjeng.weather.utils.Settings;
 import com.mikepenz.iconics.view.IconicsImageView;
 
 import java.util.ArrayList;
@@ -38,6 +38,9 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         cities = new ArrayList<>();
         this.context = context;
+
+        celsius = Settings.isCelsiusUnit(context);
+
 /*
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         String syncConnPref = sharedPref.getString(SettingsActivity.PREF_UNIT, "celsius");
@@ -110,7 +113,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
             holder.icon.setVisibility(View.VISIBLE);
             holder.progressBar.setVisibility(View.GONE);
         } else {
-            holder.view.setBackgroundColor(Color.GRAY);
+           //holder.view.setBackgroundColor(Color.GRAY);
             holder.temp.setVisibility(View.GONE);
             holder.icon.setVisibility(View.GONE);
             holder.progressBar.setVisibility(View.VISIBLE);
@@ -156,13 +159,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-
             this.view = (LinearLayout) itemView.findViewById(R.id.container);
-            /*
-            cityName = (TextView) itemView.findViewById(R.id.city_name);
-            temp = (TextView) itemView.findViewById(R.id.temp);
-            progressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
-            icon = (IconicsImageView) itemView.findViewById(R.id.icon);*/
         }
     }
 

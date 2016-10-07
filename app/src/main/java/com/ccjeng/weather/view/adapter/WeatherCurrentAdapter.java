@@ -13,6 +13,7 @@ import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.forecastio.Currently;
 import com.ccjeng.weather.utils.Formatter;
+import com.ccjeng.weather.utils.Settings;
 import com.mikepenz.iconics.view.IconicsImageView;
 
 import butterknife.BindView;
@@ -28,6 +29,8 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private static final int TEMPERATURE = 0;
     private static final int CURRENT = 1;
+
+    private boolean celsius = true;
 
     public WeatherCurrentAdapter(City city) {
         this.city = city;
@@ -47,6 +50,8 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
+        celsius = Settings.isCelsiusUnit(context);
+
         switch (viewType) {
             case TEMPERATURE:
                 return new TemperatureViewHolder(
@@ -91,6 +96,8 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         TextView sunriseTime;
         @BindView(R.id.sunsettime)
         TextView sunsetTime;
+        @BindView(R.id.currenttime)
+        TextView currentTime;
         @BindView(R.id.cardView)
         CardView cardView;
 
@@ -106,13 +113,15 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 todayIcon.setIcon(city.getCityWeather().getCurrently().getIconImage(context));
                 todayIcon.setColor(city.getCityWeather().getCurrently().getIconColor(context));
 
-                todayTemperature.setText(Formatter.formatTemperature(city.getCityWeather().getCurrently().getTemperature(), true) + " °" );
+                todayTemperature.setText(Formatter.formatTemperature(city.getCityWeather().getCurrently().getTemperature(), celsius) + " °" );
                 todaySummary.setText(city.getCityWeather().getCurrently().getSummary());
 
                 sunriseTime.setText(context.getString(R.string.sunrise,
                         Formatter.convertTime(city.getCityWeather().getDaily().getDay().get(0).getSunriseTime(), city.getCityWeather().getTimezone())));
                 sunsetTime.setText(context.getString(R.string.sunset,
                         Formatter.convertTime(city.getCityWeather().getDaily().getDay().get(0).getSunsetTime(), city.getCityWeather().getTimezone())));
+                currentTime.setText(context.getString(R.string.current,
+                        Formatter.getCurrentTimeByTimeZone(city.getCityWeather().getTimezone())));
 
 
             } catch (Exception e) {
@@ -149,11 +158,10 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         public void bind(City city) {
             try {
-
                 cardView.getBackground().setAlpha(100);
 
                 Currently currently = city.getCityWeather().getCurrently();
-                todayFeelLike.setText(Formatter.formatTemperature(currently.getApparentTemperature(), true) + " °");
+                todayFeelLike.setText(Formatter.formatTemperature(currently.getApparentTemperature(), celsius) + " °");
 
                 todayWind.setText(currently.getWindSpeed() + " kmh ");
                 todayWindDirection.setIcon(currently.getWindDirectionIcon(context));
