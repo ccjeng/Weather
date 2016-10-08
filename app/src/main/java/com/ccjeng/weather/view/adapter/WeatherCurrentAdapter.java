@@ -29,6 +29,8 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private static final int TEMPERATURE = 0;
     private static final int CURRENT = 1;
+    private static final int UPDATED = 2;
+
 
     private boolean celsius = true;
 
@@ -43,6 +45,9 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
         if (position == WeatherCurrentAdapter.CURRENT) {
             return WeatherCurrentAdapter.CURRENT;
+        }
+        if (position == WeatherCurrentAdapter.UPDATED) {
+            return WeatherCurrentAdapter.UPDATED;
         }
         return super.getItemViewType(position);
     }
@@ -59,7 +64,11 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case CURRENT:
                 return new CurrentViewHolder(
                         LayoutInflater.from(context).inflate(R.layout.item_current, parent, false));
-       }
+            case UPDATED:
+                return new UpdatedViewHolder(
+                        LayoutInflater.from(context).inflate(R.layout.item_update, parent, false));
+
+        }
         return null;
     }
 
@@ -73,6 +82,10 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case CURRENT:
                 ((CurrentViewHolder) holder).bind(city);
                 break;
+            case UPDATED:
+                ((UpdatedViewHolder) holder).bind(city);
+                break;
+
             default:
                 break;
         }
@@ -80,7 +93,7 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemCount() {
-        return city != null ? 2 : 0;
+        return city != null ? 3 : 0;
     }
 
 
@@ -117,9 +130,9 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 todaySummary.setText(city.getCityWeather().getCurrently().getSummary());
 
                 sunriseTime.setText(context.getString(R.string.sunrise,
-                        Formatter.convertTime(city.getCityWeather().getDaily().getDay().get(0).getSunriseTime(), city.getCityWeather().getTimezone())));
+                        Formatter.convertTimeByTimeZone(city.getCityWeather().getDaily().getDay().get(0).getSunriseTime(), city.getCityWeather().getTimezone())));
                 sunsetTime.setText(context.getString(R.string.sunset,
-                        Formatter.convertTime(city.getCityWeather().getDaily().getDay().get(0).getSunsetTime(), city.getCityWeather().getTimezone())));
+                        Formatter.convertTimeByTimeZone(city.getCityWeather().getDaily().getDay().get(0).getSunsetTime(), city.getCityWeather().getTimezone())));
                 currentTime.setText(context.getString(R.string.current,
                         Formatter.getCurrentTimeByTimeZone(city.getCityWeather().getTimezone())));
 
@@ -129,7 +142,6 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             }
         }
     }
-
 
     class CurrentViewHolder extends RecyclerView.ViewHolder {
 
@@ -173,6 +185,28 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 todayCloudCover.setText(Formatter.DoubleToString(currently.getCloudCover()*100) + " %");
 
                 todayPrecipitation.setText(Formatter.DoubleToString(currently.getPrecipProbability()*100) + " %");
+
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+        }
+    }
+
+    class UpdatedViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.update)
+        TextView update;
+
+
+        public UpdatedViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        public void bind(City city) {
+            try {
+                update.setText(context.getString(R.string.last_update,
+                                  Formatter.formatTimeWithDayIfNotToday(context, city.getCityWeather().getFetchTime())));
 
             } catch (Exception e) {
                 Log.e(TAG, e.toString());

@@ -2,7 +2,6 @@ package com.ccjeng.weather.utils;
 
 import android.content.Context;
 import android.text.format.DateFormat;
-import android.util.Log;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -35,7 +34,7 @@ public class Formatter {
         return DateFormat.getTimeFormat(context).format(new Date(value * 1000L));
     }
 
-    public static String convertTime(Integer time, String timeZone){
+    public static String convertTimeByTimeZone(Integer time, String timeZone){
         DateTimeZone zone = DateTimeZone.forID(timeZone);
         DateTime date = new DateTime(time * 1000L, zone);
         DateTimeFormatter format = DateTimeFormat.forPattern("HH:mm");
@@ -44,18 +43,15 @@ public class Formatter {
 
     public static String getCurrentTimeByTimeZone(String timeZone) {
         DateTimeZone zone = DateTimeZone.forID(timeZone);
-
         DateTime nowLocal = new DateTime();
         DateTime nowUTC = nowLocal.withZone(DateTimeZone.UTC).toDateTime();
         DateTime nowPlace = nowUTC.withZone(zone).toDateTime();
-        Log.d("getLocateTime", nowPlace.toString());
-
-        //DateTime date = new DateTime(nowUTC, zone);
         DateTimeFormatter format = DateTimeFormat.forPattern("HH:mm");
         return nowPlace.toString(format);
     }
 
     public static String formatTimeWithDayIfNotToday(Context context, long timeInMillis) {
+
         Calendar now = Calendar.getInstance();
         Calendar lastCheckedCal = new GregorianCalendar();
         lastCheckedCal.setTimeInMillis(timeInMillis);
@@ -94,20 +90,4 @@ public class Formatter {
 
     }
 
-    public static String getWindBearingString(Double windBearing) {
-        if (windBearing == null) {
-            return "-";
-        }
-        if (windBearing <= 45 || windBearing > 315) {
-            return "SOUTH";
-        } else if (windBearing > 45 && windBearing <= 135) {
-            return "WEST";
-        } else if (windBearing > 135 && windBearing <= 225) {
-            return "NORTH";
-        } else if (windBearing > 225 && windBearing <= 315) {
-            return "EAST";
-        } else {
-            return "WIND";
-        }
-    }
 }
