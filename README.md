@@ -1,5 +1,5 @@
 # Weather+
-[![Release](https://img.shields.io/github/release/ccjeng/US-Stocks.svg)](https://github.com/ccjeng/Weather/releases)
+[![Release](https://img.shields.io/github/release/ccjeng/Weather.svg)](https://github.com/ccjeng/Weather/releases)
 [![Twitter](https://img.shields.io/badge/Twitter-@ccjeng-blue.svg?style=flat)](http://twitter.com/ccjeng)
 
 Weather+ is a lightware weather app that focuses on summarizing the current, the next 48 hours and the next week weather data
