@@ -14,5 +14,4 @@ public interface CitiesView {
     void updateCity(City city);
     void showTemperatureInCelsius();
     void showTemperatureInFahrenheit();
-    void setSetColumns(int columns);
 }

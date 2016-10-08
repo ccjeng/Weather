@@ -20,6 +20,8 @@ import com.ccjeng.weather.view.base.BaseActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Places;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,7 +73,6 @@ public class MainActivity extends BaseActivity
         }
         super.onStop();
     }
-
 
     protected synchronized void buildGoogleApiClient() {
         googleApiClient = new GoogleApiClient
@@ -130,14 +131,13 @@ public class MainActivity extends BaseActivity
                         startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                         break;
                     case R.id.navAbout:
-                    /*    new LibsBuilder()
-                                //provide a style (optional) (LIGHT, DARK, LIGHT_DARK_TOOLBAR)
+                        new LibsBuilder()
                                 .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                                 .withAboutIconShown(true)
                                 .withAboutVersionShown(true)
                                 .withAboutAppName(getString(R.string.app_name))
                                 .withActivityTitle(getString(R.string.action_about))
-                                .start(MainActivity.this);*/
+                                .start(MainActivity.this);
                         break;
 
                 }

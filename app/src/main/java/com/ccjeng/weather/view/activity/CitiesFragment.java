@@ -13,11 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.presenter.CitiesView;
 import com.ccjeng.weather.presenter.impl.CitiesPresenter;
+import com.ccjeng.weather.utils.Utils;
 import com.ccjeng.weather.view.GoogleApiClientProvider;
 import com.ccjeng.weather.view.adapter.CitiesAdapter;
 import com.ccjeng.weather.view.adapter.RecyclerItemClickListener;
@@ -71,6 +73,7 @@ public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> im
     }
 
     private void initialize() {
+        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         adapter = new CitiesAdapter(getActivity());
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -112,6 +115,10 @@ public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> im
                 android.R.color.holo_orange_light);
         citiesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), presenter));
         presenter.reloadCities();
+
+        if (!Utils.isNetworkConnected(getActivity())) {
+            Toast.makeText(getActivity(), getActivity().getString(R.string.no_connection), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -165,16 +172,12 @@ public class CitiesFragment extends BaseFragment<CitiesView, CitiesPresenter> im
 
     @Override
     public void showTemperatureInCelsius() {
-
+        adapter.showTemperaturesInCelsius();
     }
 
     @Override
     public void showTemperatureInFahrenheit() {
-
+        adapter.showTemperaturesInFahrenheit();
     }
 
-    @Override
-    public void setSetColumns(int columns) {
-
-    }
 }

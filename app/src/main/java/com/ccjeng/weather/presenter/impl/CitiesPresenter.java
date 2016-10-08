@@ -2,6 +2,8 @@ package com.ccjeng.weather.presenter.impl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.ccjeng.weather.repository.ICityRepository;
 import com.ccjeng.weather.repository.impl.CacheRepository;
 import com.ccjeng.weather.repository.impl.CityRepository;
 import com.ccjeng.weather.repository.impl.Repository;
+import com.ccjeng.weather.view.activity.SettingsActivity;
 import com.ccjeng.weather.view.activity.WeatherActivity;
 import com.ccjeng.weather.view.adapter.CitiesAdapter;
 import com.ccjeng.weather.view.adapter.RecyclerItemClickListener;
@@ -32,7 +35,9 @@ import rx.subscriptions.CompositeSubscription;
  * Created by andycheng on 2016/9/5.
  */
 public class CitiesPresenter extends BasePresenter<CitiesView>
-        implements RecyclerItemClickListener.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+        implements RecyclerItemClickListener.OnItemClickListener
+        , SwipeRefreshLayout.OnRefreshListener
+        , SharedPreferences.OnSharedPreferenceChangeListener{
 
     private final String TAG = this.getClass().getSimpleName();
     private Context context;
@@ -49,6 +54,7 @@ public class CitiesPresenter extends BasePresenter<CitiesView>
         cityRepository = new CityRepository();
         repository = new Repository();
         this.subscriptions = new CompositeSubscription();
+        PreferenceManager.getDefaultSharedPreferences(context).registerOnSharedPreferenceChangeListener(this);
     }
 
     public void onClickAddCity() {
@@ -135,6 +141,7 @@ public class CitiesPresenter extends BasePresenter<CitiesView>
         if (subscriptions != null) {
             subscriptions.unsubscribe();
         }
+        PreferenceManager.getDefaultSharedPreferences(context).unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -154,4 +161,19 @@ public class CitiesPresenter extends BasePresenter<CitiesView>
         }
 
     }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+        switch (key) {
+            case SettingsActivity.PREF_UNIT:
+                if (sharedPreferences.getString(key, "celsius").equals("celsius")) {
+                    citiesView.showTemperatureInCelsius();
+                } else {
+                    citiesView.showTemperatureInFahrenheit();
+                }
+                break;
+        }
+    }
+
 }

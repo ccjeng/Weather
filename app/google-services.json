@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "353941179510",
+    "firebase_url": "https://lithe-window-141808.firebaseio.com",
+    "project_id": "lithe-window-141808",
+    "storage_bucket": "lithe-window-141808.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353941179510:android:ab7f7d48c6491f0b",
+        "android_client_info": {
+          "package_name": "com.ccjeng.weather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "353941179510-hed3far83m0r223u359vt86tth7gb36a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0dDq7RKoRRpYS7ZXbqyqVFCUXEHogMSE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
