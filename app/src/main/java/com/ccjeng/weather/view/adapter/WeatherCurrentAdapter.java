@@ -31,7 +31,6 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private static final int CURRENT = 1;
     private static final int UPDATED = 2;
 
-
     private boolean celsius = true;
 
     public WeatherCurrentAdapter(City city) {
@@ -67,7 +66,6 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case UPDATED:
                 return new UpdatedViewHolder(
                         LayoutInflater.from(context).inflate(R.layout.item_update, parent, false));
-
         }
         return null;
     }
@@ -85,7 +83,6 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case UPDATED:
                 ((UpdatedViewHolder) holder).bind(city);
                 break;
-
             default:
                 break;
         }
@@ -206,7 +203,7 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public void bind(City city) {
             try {
                 update.setText(context.getString(R.string.last_update,
-                                  Formatter.formatTimeWithDayIfNotToday(context, city.getCityWeather().getFetchTime())));
+                                  Formatter.formatTimeWithDayIfNotToday(context, city.getCityWeather().getFetchTime()))+ "\n\n\n\n");
 
             } catch (Exception e) {
                 Log.e(TAG, e.toString());

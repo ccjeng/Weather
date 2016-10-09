@@ -33,6 +33,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private static final int SUMMARY = 0;
     private static final int HOURS = 1;
+    private static final int UPDATED = 2;
     private boolean celsius = true;
 
     public WeatherHoursAdapter(City city) {
@@ -46,6 +47,9 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
         if (position == WeatherHoursAdapter.HOURS) {
             return WeatherHoursAdapter.HOURS;
+        }
+        if (position == WeatherHoursAdapter.UPDATED) {
+            return WeatherHoursAdapter.UPDATED;
         }
         return super.getItemViewType(position);
     }
@@ -61,6 +65,10 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case HOURS:
                 return new HoursViewHolder(
                         LayoutInflater.from(context).inflate(R.layout.item_hours, parent, false));
+            case UPDATED:
+                return new UpdatedViewHolder(
+                        LayoutInflater.from(context).inflate(R.layout.item_update, parent, false));
+
         }
         return null;
     }
@@ -75,6 +83,9 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case HOURS:
                 ((HoursViewHolder) holder).bind(city);
                 break;
+            case UPDATED:
+                ((UpdatedViewHolder) holder).bind(city);
+                break;
             default:
                 break;
         }
@@ -82,7 +93,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return city != null ? 2 : 0;
+        return city != null ? 3 : 0;
     }
 
     class SummaryViewHolder extends RecyclerView.ViewHolder {
@@ -201,6 +212,28 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             } catch (Exception e) {
                 Log.e(TAG, "HoursViewHolder bind = " + e.toString());
+            }
+        }
+    }
+
+    class UpdatedViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.update)
+        TextView update;
+
+
+        public UpdatedViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        public void bind(City city) {
+            try {
+                update.setText(context.getString(R.string.last_update,
+                        Formatter.formatTimeWithDayIfNotToday(context, city.getCityWeather().getFetchTime()))+ "\n\n\n\n");
+
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
             }
         }
     }

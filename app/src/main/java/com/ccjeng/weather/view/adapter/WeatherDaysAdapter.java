@@ -41,6 +41,8 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private static final int SUMMARY = 0;
     private static final int DAYS = 1;
+    private static final int UPDATED = 2;
+
     private boolean celsius = true;
 
     public WeatherDaysAdapter(City city) {
@@ -54,6 +56,9 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         if (position == WeatherDaysAdapter.DAYS) {
             return WeatherDaysAdapter.DAYS;
+        }
+        if (position == WeatherDaysAdapter.UPDATED) {
+            return WeatherDaysAdapter.UPDATED;
         }
         return super.getItemViewType(position);
     }
@@ -70,6 +75,9 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case DAYS:
                 return new DaysViewHolder(
                         LayoutInflater.from(context).inflate(R.layout.item_days, parent, false));
+            case UPDATED:
+                return new UpdatedViewHolder(
+                        LayoutInflater.from(context).inflate(R.layout.item_update, parent, false));
         }
         return null;
     }
@@ -84,6 +92,9 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case DAYS:
                 ((DaysViewHolder) holder).bind(city);
                 break;
+            case UPDATED:
+                ((UpdatedViewHolder) holder).bind(city);
+                break;
             default:
                 break;
         }
@@ -91,7 +102,7 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return city != null ? 2 : 0;
+        return city != null ? 3 : 0;
     }
 
     class SummaryViewHolder extends RecyclerView.ViewHolder {
@@ -230,6 +241,28 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     summary[i].setText(day.get(i).getSummary());
                     rainPre[i].setText(Formatter.DoubleToString(day.get(i).getPrecipProbability()*100) + " %");
                 }
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+        }
+    }
+
+    class UpdatedViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.update)
+        TextView update;
+
+
+        public UpdatedViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        public void bind(City city) {
+            try {
+                update.setText(context.getString(R.string.last_update,
+                        Formatter.formatTimeWithDayIfNotToday(context, city.getCityWeather().getFetchTime()))+ "\n\n\n\n");
+
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }

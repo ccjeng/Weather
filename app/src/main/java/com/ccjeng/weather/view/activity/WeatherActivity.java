@@ -41,9 +41,6 @@ public class WeatherActivity extends BaseActivity {
     @BindView(R.id.main_bg)
     ImageView imageView;
 
-    //@BindView(R.id.viewApp)
-    //CoordinatorLayout coordinatorLayout;
-
     private City city;
 
     @Override
@@ -70,7 +67,9 @@ public class WeatherActivity extends BaseActivity {
 
         getSupportActionBar().setTitle(city.getName());
 
-        getPhoto();
+        if (Utils.isNetworkConnected(this)) {
+            getPhoto();
+        }
 
     }
 
@@ -119,6 +118,8 @@ public class WeatherActivity extends BaseActivity {
                         , photo.getSecret());
 
                 Log.d(TAG, imageUrl);
+
+                //Toast.makeText(WeatherActivity.this, imageUrl, Toast.LENGTH_LONG).show();
 
                 Glide.with(WeatherActivity.this)
                         .load(imageUrl)
