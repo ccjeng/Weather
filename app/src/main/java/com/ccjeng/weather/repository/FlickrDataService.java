@@ -3,6 +3,7 @@ package com.ccjeng.weather.repository;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.flickr.Flickr;
 import com.ccjeng.weather.model.flickr.Photo;
+import com.ccjeng.weather.model.flickr.PhotoInfo.PhotoInfo;
 import com.ccjeng.weather.utils.Constant;
 
 import java.util.Random;
@@ -40,6 +41,23 @@ public class FlickrDataService {
                         }
 
                         return flickr.getPhotos().getPhoto().get(index);
+                    }
+                });
+
+    }
+
+    public Observable<PhotoInfo> getPhotoInfo(String photoId) {
+
+        PhotoServiceEndpoint service = HttpClient.getClient(Constant.FLICKR_ENDPOINT)
+                .create(PhotoServiceEndpoint.class);
+
+        return service.getInfo(Constant.FLICKR_APIKEY, photoId)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Func1<PhotoInfo, PhotoInfo>() {
+                    @Override
+                    public PhotoInfo call(PhotoInfo photoInfo) {
+                        return photoInfo;
                     }
                 });
 

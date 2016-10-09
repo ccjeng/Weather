@@ -124,7 +124,6 @@ public class WeatherActivity extends BaseActivity {
                 Glide.with(WeatherActivity.this)
                         .load(imageUrl)
                         .into(imageView);
-
             }
         });
     }
