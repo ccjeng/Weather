@@ -12,9 +12,13 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <!--Hide Status Bar
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>-->
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
     <style name="CustomViewStyle" parent="android:Widget.TextView">
         <item name="android:textColor">@color/textColor</item>

@@ -28,6 +28,7 @@
         <item>fahrenheit</item>
     </string-array>
 
+    <string name="map">Map</string>
     <string name="no_connection">No Internet Connection</string>
 
     <string name="wind">Wind</string>
