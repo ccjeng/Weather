@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/main_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:scaleType="centerCrop"/>
 
     <android.support.design.widget.AppBarLayout
@@ -39,6 +39,7 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>
