@@ -137,6 +137,7 @@ public class MainActivity extends BaseActivity
                                 .withAboutVersionShown(true)
                                 .withAboutAppName(getString(R.string.app_name))
                                 .withActivityTitle(getString(R.string.action_about))
+                                .withAboutDescription(getString(R.string.about_license))
                                 .start(MainActivity.this);
                         break;
 

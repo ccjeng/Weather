@@ -19,6 +19,6 @@ public interface PhotoServiceEndpoint {
 
     @GET("?method=flickr.photos.search&group_id=1463451@N25&tag_mode=all&format=json&nojsoncallback=1&sort=random")
     Observable<Flickr> getPhotos(@Query("api_key") String APIKEY
-            , @Query("lat") Double lat
-            , @Query("lon") Double lon);
+            , @Query("lat") String lat
+            , @Query("lon") String lon);
 }

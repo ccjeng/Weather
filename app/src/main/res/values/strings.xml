@@ -42,24 +42,9 @@
     <string name="precipitation">Precipitation</string>
     <string name="last_update">Last update: %s</string>
 
-    <string name="setting_unit_mm">Millimeters (mm)</string>
-    <string name="setting_unit_in">Inches (in)</string>
-
-    <string name="setting_unit_hpa">hPa</string>
-    <string name="setting_unit_kpa">kPa</string>
-    <string name="setting_unit_mmhg">mm Hg</string>
-
-    <string name="speed_unit_mps">m/s</string>
-    <string name="speed_unit_kph">kph</string>
-    <string name="speed_unit_mph">mph</string>
-
-    <string name="wind_direction_format_none">No indication</string>
-    <string name="wind_direction_format_arrows">Arrows</string>
-    <string name="wind_direction_format_abbreviations">Abbreviations</string>
-
-    <string name="pressure_unit_hpa">hPa</string>
-    <string name="pressure_unit_kpa">kPa</string>
-    <string name="pressure_unit_mmhg">mm Hg</string>
+    <string name="about_license"><Data><![CDATA[Copyright (c) 2016 ccjeng@google.com<br/><br/>
+    Weather Data: Darksky.net<br/>Image: Flickr Project Weather
+    ]]></Data></string>
 
     <string name="wind_direction_north">N</string>
     <string name="wind_direction_north_north_east">NNE</string>
@@ -78,12 +63,12 @@
     <string name="wind_direction_north_west">NW</string>
     <string name="wind_direction_north_north_west">NNW</string>
 
-    <!-- 1: temperature; 2: unit -->
-    <string name="dash_clock_status">%1$s°%2$s</string>
-    <!-- 1: temperature; 2: unit; 3: weather description -->
-    <string name="dash_clock_expanded_title">%1$s°%2$s - %3$s</string>
-    <!-- 1: city; 2: country; 3: wind; 4: speed units; 5: pressure; 6: pressure units; 7: humidity -->
+    <!-- 1: temperature; 2: unit
+    <string name="dash_clock_status">%1$s°%2$s</string>-->
+    <!-- 1: temperature; 2: unit; 3: weather description
+    <string name="dash_clock_expanded_title">%1$s°%2$s - %3$s</string>-->
+    <!-- 1: city; 2: country; 3: wind; 4: speed units; 5: pressure; 6: pressure units; 7: humidity
     <string name="dash_clock_expanded_body">%1$s, %2$s\nWind: %3$s %4$s\nPressure: %5$s %6$s\nHumidity: %7$s %%\n</string>
-
+-->
 
 </resources>

@@ -60,7 +60,7 @@ public class FlickrDataService {
 
         PhotoServiceEndpoint service =  getClient().create(PhotoServiceEndpoint.class);
 
-        return service.getPhotos(Constant.FLICKR_APIKEY, city.getLat(), city.getLon())
+        return service.getPhotos(Constant.FLICKR_APIKEY, city.getLat().toString(), city.getLon().toString())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Func1<Flickr, Photo>() {
