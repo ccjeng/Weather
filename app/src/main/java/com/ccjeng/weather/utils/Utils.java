@@ -40,5 +40,6 @@ public class Utils {
         //https://earth.nullschool.net/#current/wind/surface/level/orthographic=122.11,22.48,3000
         return "https://earth.nullschool.net/#current/wind/surface/level/orthographic="+ latlng +",3000";
 
+        //return "https://www.windytv.com/?" + latlng + ",6";
     }
 }

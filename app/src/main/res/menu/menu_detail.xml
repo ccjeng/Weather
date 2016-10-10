@@ -9,4 +9,9 @@
         android:title="@string/map"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/menu_photoinfo"
+        android:title="@string/photo_info"
+        app:showAsAction="never" />
+
 </menu>

@@ -28,9 +28,12 @@
         <item>fahrenheit</item>
     </string-array>
 
-    <string name="map">Map</string>
-    <string name="no_connection">No Internet Connection</string>
+    <string name="map">Wind Map</string>
+    <string name="photo_info">Photo Info</string>
 
+    <string name="no_connection">No Internet Connection</string>
+    <string name="close">Close</string>
+    <string name="photoinfo_username">Photo&#169; %s on Flickr</string>
     <string name="wind">Wind</string>
     <string name="pressure">Pressure</string>
     <string name="humidity">Humidity</string>
@@ -43,7 +46,7 @@
     <string name="last_update">Last update: %s</string>
 
     <string name="about_license"><Data><![CDATA[Copyright (c) 2016 ccjeng@google.com<br/><br/>
-    Weather Data: Darksky.net<br/>Image: Flickr Project Weather
+    Weather Data: Darksky.net<br/>Image: Flickr Project Weather<br/>Map: Earth.nullschool.net
     ]]></Data></string>
 
     <string name="wind_direction_north">N</string>

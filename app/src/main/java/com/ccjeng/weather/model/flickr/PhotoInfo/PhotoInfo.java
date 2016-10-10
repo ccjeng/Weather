@@ -8,7 +8,7 @@ public class PhotoInfo {
 
     @SerializedName("photo")
     @Expose
-    private com.ccjeng.weather.model.flickr.Photo photo;
+    private Photo photo;
     @SerializedName("stat")
     @Expose
     private String stat;
@@ -18,7 +18,7 @@ public class PhotoInfo {
      * @return
      *     The photo
      */
-    public com.ccjeng.weather.model.flickr.Photo getPhoto() {
+    public Photo getPhoto() {
         return photo;
     }
 
@@ -27,7 +27,7 @@ public class PhotoInfo {
      * @param photo
      *     The photo
      */
-    public void setPhoto(com.ccjeng.weather.model.flickr.Photo photo) {
+    public void setPhoto(Photo photo) {
         this.photo = photo;
     }
 

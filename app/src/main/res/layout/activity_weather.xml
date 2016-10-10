@@ -2,18 +2,15 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/viewApp"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/main_bg"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         android:scaleType="centerCrop"/>
 
     <android.support.design.widget.AppBarLayout
@@ -40,7 +37,6 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

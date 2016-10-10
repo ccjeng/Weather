@@ -15,14 +15,19 @@ import com.bumptech.glide.Glide;
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.flickr.Photo;
+import com.ccjeng.weather.model.flickr.PhotoInfo.PhotoInfo;
 import com.ccjeng.weather.repository.FlickrDataService;
 import com.ccjeng.weather.utils.Utils;
 import com.ccjeng.weather.view.adapter.TabsPagerAdapter;
 import com.ccjeng.weather.view.base.BaseActivity;
+import com.ccjeng.weather.view.dialog.PhotoInfoDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 public class WeatherActivity extends BaseActivity {
 
@@ -42,6 +47,9 @@ public class WeatherActivity extends BaseActivity {
     ImageView imageView;
 
     private City city;
+    private String photoInfoUsername = "";
+    private String photoInfoUrl = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +84,9 @@ public class WeatherActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_detail, menu);
-
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -86,10 +94,15 @@ public class WeatherActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.menu_map:
-                String mapUrl = Utils.getEarthURL(city.getLon()+ ","+ city.getLat());
+                String mapUrl = Utils.getEarthURL(city.getLon() + "," + city.getLat());
                 Log.d(TAG, mapUrl);
                 Intent ie = new Intent(Intent.ACTION_VIEW, Uri.parse(mapUrl));
                 startActivity(ie);
+                break;
+            case R.id.menu_photoinfo:
+                if((photoInfoUsername != null) && (!photoInfoUsername.trim().equals(""))) {
+                    showPhotoInfoDialog();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -97,11 +110,31 @@ public class WeatherActivity extends BaseActivity {
 
     private void getPhoto() {
 
-        FlickrDataService flickr = new FlickrDataService();
+        final FlickrDataService flickr = new FlickrDataService();
+
         flickr.getPhotoData(city)
-               .subscribe(new Subscriber<Photo>() {
+                .doOnNext(new Action1<Photo>() {
+                    @Override
+                    public void call(Photo photo) {
+                        String imageUrl = Utils.getFlickrImageURL(photo.getFarm().toString()
+                                , photo.getServer()
+                                , photo.getId()
+                                , photo.getSecret());
+
+                        Log.d(TAG, imageUrl);
+                        Glide.with(WeatherActivity.this)
+                                .load(imageUrl)
+                                .into(imageView);
+                    }
+                }).flatMap(new Func1<Photo, Observable<PhotoInfo>>() {
+            @Override
+            public Observable<PhotoInfo> call(Photo photo) {
+                return flickr.getPhotoInfo(photo.getId());
+            }
+        }).subscribe(new Subscriber<PhotoInfo>() {
             @Override
             public void onCompleted() {
+
             }
 
             @Override
@@ -110,22 +143,19 @@ public class WeatherActivity extends BaseActivity {
             }
 
             @Override
-            public void onNext(Photo photo) {
-
-                String imageUrl = Utils.getFlickrImageURL(photo.getFarm().toString()
-                        , photo.getServer()
-                        , photo.getId()
-                        , photo.getSecret());
-
-                Log.d(TAG, imageUrl);
-
-                //Toast.makeText(WeatherActivity.this, imageUrl, Toast.LENGTH_LONG).show();
-
-                Glide.with(WeatherActivity.this)
-                        .load(imageUrl)
-                        .into(imageView);
+            public void onNext(PhotoInfo photoInfo) {
+                photoInfoUsername = photoInfo.getPhoto().getOwner().getUsername();
+                photoInfoUrl = photoInfo.getPhoto().getUrls().getUrl().get(0).getContent();
+                //Log.d(TAG, photoInfo.getPhoto().getOwner().getUsername() + " "
+                //        + photoInfo.getPhoto().getUrls().getUrl().get(0).getContent());
             }
         });
+
+    }
+
+    private void showPhotoInfoDialog() {
+        PhotoInfoDialog dialog = PhotoInfoDialog.newInstance(photoInfoUsername, photoInfoUrl);
+        dialog.show(getSupportFragmentManager(), dialog.getClass().getName());
     }
 
 }
