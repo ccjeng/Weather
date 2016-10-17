@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.ccjeng.weather.BuildConfig;
 import com.ccjeng.weather.R;
+import com.ccjeng.weather.realm.Migration;
 
 import io.realm.RealmConfiguration;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -26,8 +27,11 @@ public class BaseApplication extends Application {
         );
 
         realmConfiguration = new RealmConfiguration.Builder(this)
-                .deleteRealmIfMigrationNeeded()
+                //.deleteRealmIfMigrationNeeded()
+                .schemaVersion(0)
+                .migration(new Migration())
                 .build();
-        //Realm.setDefaultConfiguration(realmConfiguration);
+
     }
+
 }

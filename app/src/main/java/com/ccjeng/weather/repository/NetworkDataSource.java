@@ -63,6 +63,8 @@ public class NetworkDataSource implements DataSource {
 
         String latlong = String.format("%s,%s", city.getLat(), city.getLon());
 
+       // Log.d(TAG, "FORECASTIO_APIKEY = " + BaseApplication.getFORECASTIO_APIKEY());
+
         return service.getForecast(latlong, Constant.FORECASTIO_APIKEY, "ca", Locale.getDefault().getLanguage())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
