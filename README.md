@@ -6,7 +6,10 @@ Weather+ is a lightweight weather app that focuses on summarizing the current, t
 
 Libraries
 * [Retrofit] (http://square.github.io/retrofit/)
+* [RxJava] (https://github.com/ReactiveX/RxJava)
 * [RxAndroid] (https://github.com/ReactiveX/RxAndroid)
+* [Realm] (https://github.com/realm/realm-java)
+* [Glide] (https://github.com/bumptech/glide)
 * [MPAndroidChart] (https://github.com/PhilJay/MPAndroidChart)
 * [ButterKnife] (http://jakewharton.github.io/butterknife/)
 * [Calligraphy] (https://github.com/chrisjenx/Calligraphy)

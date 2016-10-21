@@ -72,6 +72,11 @@ public class WeatherActivity extends BaseActivity {
         // Set up the ViewPager with the sections adapter.
         viewPager.setAdapter(tabsPagerAdapter);
         tabs.setupWithViewPager(viewPager);
+        TabLayout.Tab tab = tabs.getTabAt(1);
+        if (tab != null) {
+            tab.select();
+        }
+
 
         getSupportActionBar().setTitle(city.getName());
 

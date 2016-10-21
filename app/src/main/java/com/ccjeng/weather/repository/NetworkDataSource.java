@@ -4,6 +4,7 @@ import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.forecastio.CityWeather;
 import com.ccjeng.weather.repository.impl.CacheRepository;
 import com.ccjeng.weather.utils.Constant;
+import com.ccjeng.weather.utils.Utils;
 import com.ccjeng.weather.view.base.BaseApplication;
 
 import java.util.Locale;
@@ -63,9 +64,7 @@ public class NetworkDataSource implements DataSource {
 
         String latlong = String.format("%s,%s", city.getLat(), city.getLon());
 
-       // Log.d(TAG, "FORECASTIO_APIKEY = " + BaseApplication.getFORECASTIO_APIKEY());
-
-        return service.getForecast(latlong, Constant.FORECASTIO_APIKEY, "ca", Locale.getDefault().getLanguage())
+        return service.getForecast(latlong, Utils.getKey(), "ca", Locale.getDefault().getLanguage())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Func1<CityWeather, City>() {

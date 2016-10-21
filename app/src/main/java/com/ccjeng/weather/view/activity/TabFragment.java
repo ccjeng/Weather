@@ -51,13 +51,13 @@ public class TabFragment extends Fragment {
 
         switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
             case 0:
-                CurrentView currentView = new CurrentView(rootView, getActivity(), city);
-                currentView.setData();
+                HoursView hoursView = new HoursView(rootView, getActivity(), city);
+                hoursView.setData();
                 break;
 
             case 1:
-                HoursView hoursView = new HoursView(rootView, getActivity(), city);
-                hoursView.setData();
+                CurrentView currentView = new CurrentView(rootView, getActivity(), city);
+                currentView.setData();
                 break;
 
             case 2:

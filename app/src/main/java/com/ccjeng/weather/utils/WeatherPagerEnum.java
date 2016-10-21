@@ -7,8 +7,8 @@ import com.ccjeng.weather.R;
  */
 public enum WeatherPagerEnum {
 
-    CURRENT(R.string.tab_current, R.layout.view_weather_current),
     HOUR(R.string.tab_hours, R.layout.view_weather_hours),
+    CURRENT(R.string.tab_current, R.layout.view_weather_current),
     DAY(R.string.tab_days, R.layout.view_weather_days);
 
     private int mTitleResId;

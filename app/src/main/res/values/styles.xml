@@ -22,6 +22,11 @@
 
     <style name="CustomViewStyle" parent="android:Widget.TextView">
         <item name="android:textColor">@color/textColor</item>
+        <!--TextViewShadow-->
+        <item name="android:shadowColor">#ff000000</item>
+        <item name="android:shadowRadius">2.0</item>
+        <item name="android:shadowDx">1.0</item>
+        <item name="android:shadowDy">1.0</item>
     </style>
 
     <style name="NavigationDrawerStyle">

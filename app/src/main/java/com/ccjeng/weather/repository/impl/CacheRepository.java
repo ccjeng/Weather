@@ -28,7 +28,7 @@ import io.realm.RealmResults;
 public class CacheRepository {
 
     private final String TAG = this.getClass().getSimpleName();
-    public static final long EXPIRATION_TIME = 30 * 60 * 1000; //30 mins
+    public static final long EXPIRATION_TIME = 20 * 60 * 1000; //30 mins
 
     public boolean isExpired(City city) {
         if (city == null || city.getCityWeather() == null) {
