@@ -14,4 +14,10 @@ Libraries
 * [ButterKnife] (http://jakewharton.github.io/butterknife/)
 * [Calligraphy] (https://github.com/chrisjenx/Calligraphy)
 
+<img src='http://ccjeng.github.io/screen/screen-weather-1.png' width='256'/>
+<img src='http://ccjeng.github.io/screen/screen-weather-2.png' width='256'/>
+
+<img src='http://ccjeng.github.io/screen/screen-weather-3.png' width='256'/>
+<img src='http://ccjeng.github.io/screen/screen-weather-4.png' width='256'/>
+
 <a href="https://play.google.com/store/apps/details?id=com.ccjeng.weather&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" width="150"/></a>
