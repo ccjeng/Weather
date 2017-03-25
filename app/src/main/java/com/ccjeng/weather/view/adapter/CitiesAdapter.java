@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
+import com.ccjeng.weather.utils.Constant;
 import com.ccjeng.weather.utils.Formatter;
 import com.ccjeng.weather.utils.Settings;
 import com.mikepenz.iconics.view.IconicsImageView;
@@ -94,7 +95,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        holder.cardView.getBackground().setAlpha(100);
+        holder.cardView.getBackground().setAlpha(Constant.ALPHA_VALUE);
 
         City city = cities.get(position);
 

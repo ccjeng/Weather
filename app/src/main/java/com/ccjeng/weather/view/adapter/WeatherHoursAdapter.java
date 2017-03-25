@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.forecastio.Hour;
+import com.ccjeng.weather.utils.Constant;
 import com.ccjeng.weather.utils.Formatter;
 import com.ccjeng.weather.utils.Settings;
 import com.github.mikephil.charting.charts.LineChart;
@@ -114,7 +115,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public void bind(City city) {
             try {
-                cardView.getBackground().setAlpha(100);
+                cardView.getBackground().setAlpha(Constant.ALPHA_VALUE);
 
                 icon.setIcon(city.getCityWeather().getHourly().getIconImage(context));
                 icon.setColor(city.getCityWeather().getHourly().getIconColor(context));
@@ -198,7 +199,7 @@ public class WeatherHoursAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public void bind(City city) {
 
-            cardView.getBackground().setAlpha(100);
+            cardView.getBackground().setAlpha(Constant.ALPHA_VALUE);
 
             try {
                 List<Hour> hour = city.getCityWeather().getHourly().getHour();

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.ccjeng.weather.R;
 import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.forecastio.Currently;
+import com.ccjeng.weather.utils.Constant;
 import com.ccjeng.weather.utils.Formatter;
 import com.ccjeng.weather.utils.Settings;
 import com.mikepenz.iconics.view.IconicsImageView;
@@ -118,7 +119,7 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         public void bind(City city) {
             try {
-                cardView.getBackground().setAlpha(100);
+                cardView.getBackground().setAlpha(Constant.ALPHA_VALUE);
 
                 todayIcon.setIcon(city.getCityWeather().getCurrently().getIconImage(context));
                 todayIcon.setColor(city.getCityWeather().getCurrently().getIconColor(context));
@@ -167,7 +168,7 @@ public class WeatherCurrentAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         public void bind(City city) {
             try {
-                cardView.getBackground().setAlpha(100);
+                cardView.getBackground().setAlpha(Constant.ALPHA_VALUE);
 
                 Currently currently = city.getCityWeather().getCurrently();
                 todayFeelLike.setText(Formatter.formatTemperature(currently.getApparentTemperature(), celsius) + " °");
