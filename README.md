@@ -5,14 +5,14 @@
 Weather+ is a lightweight weather app that focuses on summarizing the current, the next 48 hours and the next week weather data.
 
 Libraries
-* [Retrofit] (http://square.github.io/retrofit/)
-* [RxJava] (https://github.com/ReactiveX/RxJava)
-* [RxAndroid] (https://github.com/ReactiveX/RxAndroid)
-* [Realm] (https://github.com/realm/realm-java)
-* [Glide] (https://github.com/bumptech/glide)
-* [MPAndroidChart] (https://github.com/PhilJay/MPAndroidChart)
-* [ButterKnife] (http://jakewharton.github.io/butterknife/)
-* [Calligraphy] (https://github.com/chrisjenx/Calligraphy)
+* [Retrofit](http://square.github.io/retrofit/)
+* [RxJava](https://github.com/ReactiveX/RxJava)
+* [RxAndroid](https://github.com/ReactiveX/RxAndroid)
+* [Realm](https://github.com/realm/realm-java)
+* [Glide](https://github.com/bumptech/glide)
+* [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
+* [ButterKnife](http://jakewharton.github.io/butterknife/)
+* [Calligraphy](https://github.com/chrisjenx/Calligraphy)
 
 <img src='http://ccjeng.github.io/screen/screen-weather-1.png' width='256'/>
 <img src='http://ccjeng.github.io/screen/screen-weather-2.png' width='256'/>
