@@ -27,6 +27,9 @@
         <item>celsius</item>
         <item>fahrenheit</item>
     </string-array>
+    <string name="pref_background_photo">Background Photo</string>
+    <string name="preference_background_photo">Enable Background Photo</string>
+    <string name="preference_background_photo_summary">Show background photo for each city</string>
 
     <string name="map">Wind Map</string>
     <string name="photo_info">Photo Info</string>
@@ -45,7 +48,7 @@
     <string name="precipitation">Precipitation</string>
     <string name="last_update">Last update: %s</string>
 
-    <string name="about_license"><Data><![CDATA[Copyright (c) 2016 ccjeng@google.com<br/><br/>
+    <string name="about_license"><Data><![CDATA[Copyright (c) 2017 ccjeng@google.com<br/><br/>
     Weather Data: Darksky.net<br/>Image: Flickr Project Weather<br/>Map: Earth.nullschool.net
     ]]></Data></string>
 

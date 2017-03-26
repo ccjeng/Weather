@@ -1,6 +1,7 @@
 package com.ccjeng.weather.view.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -140,7 +141,7 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 mChart.getAxisRight().setEnabled(false);
                 mChart.getXAxis().setDrawAxisLine(false);
                 mChart.getXAxis().setDrawGridLines(false);
-                mChart.setDescription("");
+                mChart.getDescription().setEnabled(false);
                 mChart.setTouchEnabled(false);
                 mChart.setAutoScaleMinMaxEnabled(true);
                 Legend l = mChart.getLegend();
@@ -159,7 +160,6 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 max.setLineWidth(2.5f);
                 max.setCircleRadius(4f);
                 max.setValueTextSize(11f);
-                max.setValueTextColor(R.color.textColor);
                 dataSets.add(max);
 
                 //Line Min Temperature
@@ -173,13 +173,13 @@ public class WeatherDaysAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 min.setLineWidth(2.5f);
                 min.setCircleRadius(4f);
                 min.setValueTextSize(11f);
-                min.setValueTextColor(R.color.textColor);
                 dataSets.add(min);
 
                 XAxis xAxis = mChart.getXAxis();
                 xAxis.setEnabled(false);
 
                 LineData data = new LineData(dataSets);
+                data.setValueTextColor(Color.rgb(129, 212, 250));
                 mChart.setData(data);
                 mChart.invalidate();
 

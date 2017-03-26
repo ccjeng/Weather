@@ -21,4 +21,9 @@ public class Settings {
             return false;
         }
     }
+
+    public static boolean isBackgroundPhoto(Context context) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPref.getBoolean(SettingsActivity.BACKGROUND_PHOTO, false);
+    }
 }

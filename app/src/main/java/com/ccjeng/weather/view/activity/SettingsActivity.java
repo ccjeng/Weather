@@ -23,6 +23,8 @@ public class SettingsActivity extends BaseActivity {
     Toolbar toolbar;
 
     public static final String PREF_UNIT =  "unit_list";
+    public static final String BACKGROUND_PHOTO =  "background_photo";
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

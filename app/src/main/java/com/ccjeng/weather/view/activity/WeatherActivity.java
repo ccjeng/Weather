@@ -17,6 +17,7 @@ import com.ccjeng.weather.model.City;
 import com.ccjeng.weather.model.flickr.Photo;
 import com.ccjeng.weather.model.flickr.PhotoInfo.PhotoInfo;
 import com.ccjeng.weather.repository.FlickrDataService;
+import com.ccjeng.weather.utils.Settings;
 import com.ccjeng.weather.utils.Utils;
 import com.ccjeng.weather.view.adapter.TabsPagerAdapter;
 import com.ccjeng.weather.view.base.BaseActivity;
@@ -81,7 +82,9 @@ public class WeatherActivity extends BaseActivity {
         getSupportActionBar().setTitle(city.getName());
 
         if (Utils.isNetworkConnected(this)) {
-            getPhoto();
+            if(Settings.isBackgroundPhoto(this)) {
+                getPhoto();
+            }
         }
 
     }
