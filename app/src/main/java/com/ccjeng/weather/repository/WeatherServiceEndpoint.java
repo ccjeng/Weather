@@ -12,7 +12,7 @@ import rx.Observable;
  */
 public interface WeatherServiceEndpoint {
 
-    //Example call https://api.forecast.io/forecast/3021a64fa44fe78d95b05991be3fecc4/-31.4286,-61.9143
+    //Example call https://api.forecast.io/forecast/xxxxxxxxxxxxxxx/-31.4286,-61.9143
     @GET("forecast/{apiKey}/{latLon}")
     Observable<CityWeather> getForecast(@Path(value="latLon", encoded=true) String latLong
             , @Path("apiKey") String APIKEY
