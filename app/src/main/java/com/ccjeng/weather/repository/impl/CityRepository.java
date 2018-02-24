@@ -62,7 +62,7 @@ public class CityRepository implements ICityRepository {
         final Realm realm = Realm.getInstance(BaseApplication.realmConfiguration);
 
         return realm.where(City.class).findAll()
-                .asObservable()
+                .asFlowable()
                 .map(new Func1<RealmResults<City>, List<City>>() {
                     @Override
                     public List<City> call(RealmResults<City> cities) {
